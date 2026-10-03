@@ -1,21 +1,26 @@
 ---
 type: prd
 status: approved
+build: v1-demo-live
 owner: Matt
 created: 2026-10-02
 updated: 2026-10-03
 tags: [prd, blue-willow-mental-health, web-build, sdd]
-related: [["Discovery Call Notes 2026-10-02"], ["Brand & Design Direction 2026-10-02"], ["Plan - DRAFT 2026-10-02"], ["Pricing Analysis 2026-10-02"]]
+related: [["Discovery Call Notes 2026-10-02"], ["Brand & Design Direction 2026-10-02"], ["Plan 2026-10-03"], ["Pricing Analysis 2026-10-02"]]
 repo: https://github.com/matboy82/blue-willow-mental-health
 ---
 
 # PRD: Blue Willow Mental Health — Website Build
 
-> **Status: APPROVED — 2026-10-03 by Matt.** Built from the discovery call notes, brand & design direction, and pricing analysis; structured for systematic build under the BIS AI-First Development System (spec → implementation → QA → code review → adversarial review → stakeholder review → release authorization → production verification).
+> **Status: APPROVED 2026-10-03 by Matt · v1 BUILT, DEMO LIVE 2026-10-03.** Built from the discovery call notes, brand & design direction, and pricing analysis; structured for systematic build under the BIS AI-First Development System (spec → implementation → QA → code review → adversarial review → stakeholder review → release authorization → production verification).
 >
-> **Commercial:** $200 deposit received; $100/mo retainer (family discount); Matt-decided % bumps at 10 customers and 25 staged intakes. **Client:** Jody Elbert, Blue Willow Mental Health (St. Matthews, Louisville KY) — ADHD-focused, telehealth only, cash pay.
+> **Commercial:** $200 deposit received; $100/mo retainer (family discount); step-up **DECIDED 2026-10-03: 10% of site-driven monthly revenue at each gate** (≈$425/mo at 10 customers, ≈$1,063/mo at 25 staged intakes) — needs Jody's written confirmation per proposal terms. **Client:** Jody Elbert, Blue Willow Mental Health (St. Matthews, Louisville KY) — ADHD-focused, telehealth only, cash pay. Contact: 859-208-7100 · jo@bluewillowmentalhealth.com.
 >
-> **Repo:** https://github.com/matboy82/blue-willow-mental-health (created 2026-10-03; seeded with this PRD + brand direction + homepage mockup).
+> **Repo:** https://github.com/matboy82/blue-willow-mental-health — v1 implemented (Astro 7.3.5 static, pushed `ac58ada4` by Matt 2026-10-03); test deployment live at https://blue-willow-mental-health.pages.dev (verified 2026-10-03, matches the approved mockup; SimplePractice booking links working).
+>
+> **Still pending:** production cutover (custom domain + `PUBLIC_SITE_ENV=production` + Squarespace DNS, needs Matt's release authorization); SimplePractice Online Booking config (`/request` was erroring — availability + bookable appointment types); GBP verification (address submitted 2026-10-03); Instagram verification/linking; Jody's proposal response (valid to 2026-11-03) + clinical copy sign-off.
+>
+> **Retired arch decision:** the contact path is now native SimplePractice pages via branded site buttons (Matt approved "Essential with secure links" 2026-10-03) — no embedded booking widget, no Cloudflare Worker contact form. The Worker bullet in §4 below is retired.
 
 ## 1. Background & Problem
 
@@ -49,7 +54,7 @@ The system we build must: present the practice as the credible mid-market specia
 - **Hosting:** Cloudflare Pages on the **BIS-owned account** — same shape as the Miller Remodeling site.
 - **Domain:** bluewillowmentalhealth.com **stays registered at Squarespace** (Matt has access); DNS records pointed from Squarespace to Cloudflare Pages. No registrar move.
 - **Scheduling/payments/clinical:** SimplePractice (Jody's system of record) — Online Booking widget embedded; payments and paperwork stay entirely in SimplePractice.
-- **Contact path:** lightweight Cloudflare Worker (`POST /contact`) → validates → emails Jody (via her Google Workspace) → optional SMS. **No storage of submissions** (no database = nothing to breach); TLS everywhere; minimum-necessary fields only.
+- **Contact path (DECIDED 2026-10-03 — Worker retired):** native SimplePractice contact/booking pages opened via branded site buttons ("Essential with secure links," Matt-approved). No embedded widget, no custom Worker, no submission storage. Jody gets SimplePractice's native instant notifications; forms collect contact info only.
 - **Analytics:** privacy-safe (Plausible or Cloudflare Web Analytics — decided in WS-0 spec); never any PHI in URLs or events; query params stripped.
 - **Content:** Markdown content layer with Zod schemas (copy deck lives in the repo, Jody-editable later without code).
 - **Secrets:** Worker secrets in Cloudflare secret store; never committed.
