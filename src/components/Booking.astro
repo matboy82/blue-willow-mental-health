@@ -1,0 +1,35 @@
+---
+import { practice } from '../lib/practice';
+import widget from './simplepractice-booking.html?raw';
+const configured = widget.includes('data-spwidget-scope');
+---
+<section class="block" id="book" aria-labelledby="booking-heading">
+  <div class="wrap"><div class="final">
+    <div class="kicker light">Your next step</div>
+    <h2 id="booking-heading">Clarity starts with a conversation.</h2>
+    <p>Request your $225 assessment through our secure SimplePractice portal. Choose a time and let the practice confirm your appointment.</p>
+    {configured && <div class="booking-widget"><button class="btn btn-ghost load-booking" type="button">Load appointment options</button><template class="booking-template" set:html={widget} /><div class="booking-content"></div></div>}
+    <a class="btn" href={practice.booking} rel="noreferrer">{configured ? 'Open the secure booking portal ↗' : 'Book your $225 assessment ↗'}</a>
+    <p class="booking-note">Scheduling, payment, and clinical paperwork stay in SimplePractice.</p>
+  </div></div>
+</section>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.load-booking').forEach(button => {
+    button.addEventListener('click', () => {
+      const wrapper = button.closest('.booking-widget');
+      const template = wrapper?.querySelector<HTMLTemplateElement>('.booking-template');
+      const container = wrapper?.querySelector('.booking-content');
+      if (!template || !container || container.childNodes.length) return;
+      container.appendChild(template.content.cloneNode(true));
+      // Trusted, practice-supplied vendor code is activated only on request.
+      container.querySelectorAll('script').forEach(inert => {
+        const active = document.createElement('script');
+        for (const attribute of inert.attributes) active.setAttribute(attribute.name, attribute.value);
+        active.async = false;
+        active.textContent = inert.textContent;
+        inert.replaceWith(active);
+      });
+      button.hidden = true;
+    }, { once: true });
+  });
+</script>

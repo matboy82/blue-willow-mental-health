@@ -1,0 +1,50 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/fraunces/500.css';
+import '@fontsource/fraunces/600.css';
+import '@fontsource/fraunces/700.css';
+import '../styles/global.css';
+import { practice, faqs } from '../lib/practice';
+interface Props { title: string; description: string; faq?: boolean; noindex?: boolean }
+const { title, description, faq = false, noindex = false } = Astro.props;
+const production = import.meta.env.PUBLIC_SITE_ENV === 'production';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const nav = [{ href: '/how-it-works/', label: 'How it works' }, { href: '/pricing/', label: 'Pricing' }, { href: '/faq/', label: 'FAQ' }, { href: '/about/', label: 'About' }, { href: '/contact/', label: 'Contact' }];
+const schema = {
+  '@context': 'https://schema.org', '@graph': [
+    { '@type': 'MedicalClinic', '@id': new URL('#practice', Astro.site).href, name: practice.name, url: Astro.site?.href, description: 'A focused telehealth ADHD practice for adolescents and adults, based in the St. Matthews area of Louisville and serving Kentucky.', areaServed: { '@type': 'State', name: 'Kentucky' }, medicalSpecialty: 'Psychiatric', priceRange: '$100–$225', availableService: { '@type': 'MedicalTherapy', name: 'Telehealth ADHD assessment' } },
+    ...(faq ? [{ '@type': 'FAQPage', mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }] : []),
+  ],
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} | Blue Willow Mental Health</title><meta name="description" content={description} />
+  <link rel="canonical" href={canonical} /><link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="robots" content={production && !noindex ? 'index, follow' : 'noindex, nofollow'} />
+  <meta name="referrer" content="no-referrer" />
+  <meta property="og:title" content={`${title} | Blue Willow Mental Health`} /><meta property="og:description" content={description} />
+  <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL('/willow-mark.jpg', Astro.site)} /><meta property="og:image:alt" content="Blue Willow tree mark" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\u003c')} />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header><div class="wrap nav">
+    <a class="brand" href="/" aria-label="Blue Willow Mental Health home"><img src="/willow-mark.jpg" alt="" width="46" height="52" /><span class="brand-name">Blue Willow<small>MENTAL HEALTH</small></span></a>
+    <nav class="nav-links" aria-label="Main navigation">{nav.map(n => <a href={n.href} aria-current={Astro.url.pathname === n.href ? 'page' : undefined}>{n.label}</a>)}<a class="btn btn-sm" href="/#book">Book assessment</a></nav>
+    <details class="mobile-menu"><summary aria-label="Navigation menu">Menu</summary><nav aria-label="Mobile navigation">{nav.map(n => <a href={n.href}>{n.label}</a>)}<a href="/#book">Book assessment</a></nav></details>
+  </div></header>
+  <main id="main" tabindex="-1"><slot /></main>
+  <footer><div class="wrap"><div class="foot-grid">
+    <div><h2>Blue Willow Mental Health</h2><p>Focused ADHD assessments for teens and adults.<br />St. Matthews · Louisville, KY<br />Telehealth across Kentucky</p></div>
+    <div><h2>Explore the practice</h2><ul>{nav.map(n => <li><a href={n.href}>{n.label}</a></li>)}</ul></div>
+    <div><h2>Your next step</h2><ul><li><a href="/adhd-assessment-for-teens/">Assessments for teens</a></li><li><a href="/adhd-assessment-for-adults/">Assessments for adults</a></li><li><a href={practice.booking} rel="noreferrer">Secure client portal ↗</a></li><li><a href="/privacy/">Privacy notice</a></li></ul></div>
+  </div><div class="foot-bottom"><span>© {new Date().getFullYear()} Blue Willow Mental Health.</span><p>This website does not collect clinical information. Clinical intake takes place in SimplePractice.</p></div></div></footer>
+</body>
+</html>

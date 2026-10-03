@@ -1,0 +1,15 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Booking from '../components/Booking.astro';
+import Pricing from '../components/Pricing.astro';
+import Faq from '../components/Faq.astro';
+export async function getStaticPaths() { return (await getCollection('pages')).map(page => ({ params: { slug: page.id }, props: { page } })); }
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+<Layout title={page.data.title} description={page.data.description} faq={page.id === 'faq'}>
+  <section class="page-hero"><div class="wrap"><a class="breadcrumb" href="/">Home /</a><div class="kicker">{page.data.eyebrow}</div><h1>{page.data.heading}</h1><p class="lead">{page.data.description}</p></div></section>
+  <section class="block"><div class="wrap"><div class="prose"><Content /></div>{page.id === 'pricing' && <Pricing />}{page.id === 'faq' && <Faq />}</div></section>
+  <Booking />
+</Layout>

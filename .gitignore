@@ -18,3 +18,10 @@ Thumbs.db
 
 # logs
 *.log
+
+# generated verification output
+.astro/
+.lighthouseci/
+qa/
+test-results/
+playwright-report/

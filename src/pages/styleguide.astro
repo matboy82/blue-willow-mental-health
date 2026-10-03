@@ -1,0 +1,5 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Faq from '../components/Faq.astro';
+---
+<Layout title="Brand styleguide" description="Blue Willow Mental Health design tokens and components." noindex><section class="block"><div class="wrap"><div class="kicker">Design system</div><h1>Blue Willow, in practice.</h1><div class="swatches">{[['Willow Ink','#22355C'],['Willow Blue','#4A6FA5'],['Powder','#B4C5DB'],['Cream','#FAF8F1'],['Amber','#D9A441'],['Text','#1F2A3D']].map(([name, hex]) => <div><span style={`background:${hex}`}></span><strong>{name}</strong><code>{hex}</code></div>)}</div><div class="prose"><h2>Fraunces for clarity. Inter for the details.</h2><p>Direct, warm, plain-spoken. Answers without the jargon.</p><a class="btn" href="/#book">Book assessment</a> <a class="btn btn-ghost" href="/how-it-works/">How it works</a><h2>Questions & answers</h2></div><Faq /></div></section></Layout>

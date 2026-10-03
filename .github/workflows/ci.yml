@@ -1,0 +1,28 @@
+name: Website verification
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+      PUBLIC_SITE_ENV: production
+      SITE_URL: https://bluewillowmentalhealth.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run verify
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - run: npx lhci autorun
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: website-qa
+          path: |
+            qa/lighthouse
+            playwright-report
+            test-results

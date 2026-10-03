@@ -1,25 +1,39 @@
-# Blue Willow Mental Health — Website
+# Blue Willow Mental Health
 
-**Client:** Jody Elbert, Blue Willow Mental Health (St. Matthews, Louisville KY) — ADHD-focused, telehealth only, cash pay ($225 intake / $100 follow-up).
-**Status:** PRD approved 2026-10-03. Pre-build.
+The public website for a focused telehealth ADHD practice rooted in St. Matthews, Louisville, serving Kentucky. Built from docs/PRD.md, docs/brand-direction.md, and the approved design/homepage-mockup.html.
 
-## What this is
-The public website for Blue Willow Mental Health: a focused ADHD practice site that converts searchers into booked assessments. Positioning: *the focused ADHD specialist for Louisville — clear answers, honest prices, no games.*
+## Run locally
 
-## Stack (per PRD)
-- **Astro 7.x** (pinned) + TypeScript, static output — no UI framework needed.
-- **Hosting:** Cloudflare Pages (BIS-owned account).
-- **Domain:** bluewillowmentalhealth.com stays registered at **Squarespace**; DNS pointed to Cloudflare Pages.
-- **Scheduling/payments/clinical:** SimplePractice (Jody's system of record) — [online booking](https://jo-elbert.clientsecure.me/) + [contact widget](https://jo-elbert.clientsecure.me/contact-widget).
-- **Contact path:** prefer SimplePractice's native contact widget; optional Cloudflare Worker `POST /contact` (forward-only, no storage).
+Requires Node 22.12+ and npm. Astro 7.3.5 is pinned; commit the lockfile with changes.
 
-## Repo layout
-- `docs/PRD.md` — approved PRD (8 workstreams, SDD gates).
-- `docs/brand-direction.md` — brand & design direction (palette, type, voice, homepage blueprint).
-- `design/homepage-mockup.html` — approved homepage mockup (open in a browser to review).
-- `PLACEHOLDERS.md` — third-party/account placeholders with owners + unblock conditions.
+```powershell
+npm ci
+npm run dev
+```
 
-## Standing rules
-- **HIPAA:** Jody is fully licensed and registered. No PHI in this repo, in CI logs, in analytics, or in chat. Site forms collect contact info only — clinical intake lives in SimplePractice.
-- **Brand:** Jody's name stays off the brand — it's Blue Willow Mental Health, not a personal brand.
-- **Canonical shared cognition:** BIS-Vault `10-Projects/Active/Blue Willow Mental Health/` (client record, plan, pricing analysis).
+Open http://127.0.0.1:4322. `npm run verify` runs type checks, builds dist, and verifies routes, links, metadata, and privacy defaults. `npm run preview` serves built output. Browser checks: `npx playwright install chromium`, then `npx playwright test`. `npx lhci autorun` audits mobile Lighthouse thresholds (use a production-mode build for SEO; previews intentionally block indexing).
+
+In restricted environments set ASTRO_TELEMETRY_DISABLED=1. CI does this automatically. Existing local browsers can be selected via BROWSER_EXECUTABLE_PATH for Playwright and CHROME_PATH for Lighthouse.
+
+## Build and integration status
+
+Implemented: homepage, process, pricing, FAQ, about, contact, privacy, teen/adult audience pages, styleguide, custom 404, self-hosted fonts, supplied tree mark, favicon, structured data, sitemap, security headers, and CI.
+
+Booking uses the supplied secure portal link. The official widget has a dedicated integration slot; when configured it loads only on request. The contact form can load the supplied SimplePractice URL on request with a direct fallback. No patient data backend, custom contact Worker, analytics, or marketing trackers are included.
+
+**Not deployed.** Account setup, real booking/inquiry tests, notification delivery, clinical sign-off, and release authorization remain outstanding. Preview builds are noindex by default; PUBLIC_SITE_ENV=production enables production indexing.
+
+**Start with [docs/SETUP.md](docs/SETUP.md)** for Cloudflare Pages configuration, Squarespace/Cloudflare DNS migration, SimplePractice widget and notifications, search integrations, privacy review, launch checklist, and rollback.
+
+## Editing
+
+- Informational copy: src/content/pages/*.md (validated by Zod).
+- Homepage: src/pages/index.astro.
+- Shared FAQs and practice URLs: src/lib/practice.ts.
+- Pricing cards: src/components/Pricing.astro; keep amounts in Markdown/homepage/schema in sync.
+- Official widget snippet: src/components/simplepractice-booking.html.
+- Shared design: src/styles/global.css; approved blue/amber tokens follow the mockup and PRD.
+
+See [PLACEHOLDERS.md](PLACEHOLDERS.md), [architecture decisions](docs/ADR-001-static-site.md), and [QA results](docs/QA.md).
+
+Standing rules: no patient data or credentials in code, logs, analytics, or chat; clinical intake stays in SimplePractice. The practice brand does not use a personal provider name. Domain registration stays at Squarespace; the apex Pages domain requires Cloudflare DNS nameservers. The PRD's production cutover requires Matt's authorization and clinical copy approval.

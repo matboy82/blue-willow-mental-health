@@ -1,0 +1,6 @@
+---
+import { faqs } from '../lib/practice';
+---
+<div class="faq-list">
+  {faqs.map(({ question, answer }) => <details><summary>{question}</summary><p>{answer}</p></details>)}
+</div>

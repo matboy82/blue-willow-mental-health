@@ -1,0 +1,11 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://widget-cdn.simplepractice.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.simplepractice.com https://*.clientsecure.me; font-src 'self'; frame-src https://jo-elbert.clientsecure.me https://*.simplepractice.com; connect-src 'self' https://*.simplepractice.com https://*.clientsecure.me; object-src 'none'; base-uri 'self'; form-action 'self' https://jo-elbert.clientsecure.me; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
