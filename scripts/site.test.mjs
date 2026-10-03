@@ -46,6 +46,14 @@ test('contact stays entirely in the native secure portal', async () => {
   assert.match(html, /Send a secure inquiry/);
   assert.match(html, /https:\/\/jo-elbert\.clientsecure\.me\/contact-widget/);
 });
+test('WebMCP exposes only public, non-clinical actions', async () => {
+  const html = await readFile('dist/index.html', 'utf8');
+  assert.match(html, /document\.modelContext/);
+  assert.match(html, /get_public_practice_info/);
+  assert.match(html, /open_booking_flow/);
+  assert.match(html, /open_secure_contact/);
+  assert.doesNotMatch(html, /clinicalHistory|diagnosisDetails/i);
+});
 test('preview robots blocks indexing unless production is explicit', async () => {
   const robots = await readFile('dist/robots.txt', 'utf8');
   assert.match(robots, process.env.PUBLIC_SITE_ENV === 'production' ? /Allow: \// : /Disallow: \/\n/);

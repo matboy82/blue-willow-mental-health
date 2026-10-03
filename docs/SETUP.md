@@ -107,4 +107,14 @@ Before enabling it, inventory actual beacon fields (including path and referrer)
 
 ## Handover for the practice
 
+## Browser-agent support
+
+The site registers optional WebMCP tools when a supported browser agent exposes `document.modelContext`:
+
+- `get_public_practice_info` reads public services, prices, coverage area, and secure links.
+- `open_booking_flow` opens the SimplePractice booking portal for the selected public appointment type.
+- `open_secure_contact` opens the SimplePractice secure contact flow.
+
+These tools are client-side progressive enhancement. They expose no patient data, clinical details, intake fields, or server-side credentials. Booking and contact remain in SimplePractice.
+
 Appointments and inquiries arrive in SimplePractice. Keep its notification preferences and practice inbox working; website updates do not change availability. Update availability, fees, paperwork, and payment policies in SimplePractice as needed, then ask Matt to keep website wording consistent. Ask Matt for copy/layout/integration changes. Do not email clinical details for website edits. The ongoing support arrangement remains the retainer described in the PRD.
