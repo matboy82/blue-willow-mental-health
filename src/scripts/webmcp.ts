@@ -60,7 +60,7 @@ if (typeof registry?.registerTool === 'function') {
     inputSchema: { type: 'object', properties: { service: serviceSchema }, required: ['service'], additionalProperties: false },
     execute(input: unknown) {
       const service = readService(input);
-      window.location.assign(practice.booking);
+      window.setTimeout(() => window.location.assign(practice.booking), 0);
       return { status: 'opened', service, ...serviceDetails[service], url: practice.booking };
     },
   });
@@ -70,7 +70,7 @@ if (typeof registry?.registerTool === 'function') {
     description: 'Open the secure SimplePractice contact flow for a general practice question.',
     inputSchema: { type: 'object', properties: {}, additionalProperties: false },
     execute() {
-      window.location.assign(practice.contact);
+      window.setTimeout(() => window.location.assign(practice.contact), 0);
       return { status: 'opened', url: practice.contact };
     },
   });
