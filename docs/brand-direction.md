@@ -32,7 +32,7 @@ Not the $3,000 battery. Not the 15-minute med check. The middle that respects bo
   - Willow Deep `#1E4D4B` — primary, headlines, header
   - Sage `#A8BFA5` — secondary, dividers, calm backgrounds
   - Cream `#FAF7F0` — page background (warm, not stark white)
-  - Amber `#D9A441` — accent, CTAs, highlights
+  - Amber `#D9A441` — warm accent only (trust ticks, card edges, small highlights). Decided 2026-10-03: CTAs use **Willow Ink** (deep blue buttons, white text) instead of amber — calmer, monochromatic; white button on the dark final-CTA band.
   - Ink `#22302E` — body text
   - Avoid: cold hospital blues, aggressive reds, millennial-pink therapy clichés.
 - **Typography:** Fraunces (serif, headlines — established, professional) + Inter (sans, body — clean, modern). Both Google Fonts, Astro-friendly.
@@ -56,5 +56,5 @@ Not the $3,000 battery. Not the 15-minute med check. The middle that respects bo
 - Health-detail intake on the contact form (HIPAA — contact info only; clinical intake lives in SimplePractice).
 - Generic "mental wellness" stock aesthetics — she's a *specialist*, and the design must say so.
 
-## Next step
-Drop the Facebook logo file in chat → build the homepage mockup around the real mark (palette, type, hero) for review.
+## Status
+Mockup built 2026-10-02 around the real tree mark (`design/homepage-mockup.html`); deep-blue CTA buttons approved by Matt 2026-10-03. Pending: full (uncropped) logo lockup from Jody — currently using the tree mark only.
