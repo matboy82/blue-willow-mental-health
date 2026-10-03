@@ -5,7 +5,7 @@ test('homepage and content pages are accessible at desktop and mobile sizes', as
   test.setTimeout(90_000); // Eighteen page/viewport audits can exceed the default thirty seconds.
   for (const width of [1440, 360]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const route of ['/', '/how-it-works/', '/pricing/', '/faq/', '/about/', '/contact/', '/privacy/', '/adhd-assessment-for-teens/', '/adhd-assessment-for-adults/']) {
+    for (const route of ['/', '/how-it-works/', '/pricing/', '/faq/', '/about/', '/contact/', '/privacy/', '/adhd-assessment-for-teens/', '/adhd-assessment-for-adults/', '/adhd-assessment-louisville-ky/']) {
       await page.goto(route);
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
       expect(results.violations, `${width}: ${route}`).toEqual([]);

@@ -8,8 +8,8 @@ export async function getStaticPaths() { return (await getCollection('pages')).m
 const { page } = Astro.props;
 const { Content } = await render(page);
 ---
-<Layout title={page.data.title} description={page.data.description} faq={page.id === 'faq'}>
+<Layout title={page.data.title} description={page.data.description} faq={['faq', 'adhd-assessment-louisville-ky', 'adhd-assessment-for-adults', 'adhd-assessment-for-teens', 'pricing', 'how-it-works'].includes(page.id)}>
   <section class="page-hero"><div class="wrap"><a class="breadcrumb" href="/">Home /</a><div class="kicker">{page.data.eyebrow}</div><h1>{page.data.heading}</h1><p class="lead">{page.data.description}</p></div></section>
-  <section class="block"><div class="wrap"><div class="prose"><Content /></div>{page.id === 'pricing' && <Pricing />}{page.id === 'faq' && <Faq />}</div></section>
+  <section class="block"><div class="wrap"><div class="prose"><Content /></div>{page.id === 'pricing' && <Pricing />}{['faq', 'adhd-assessment-louisville-ky', 'adhd-assessment-for-adults', 'adhd-assessment-for-teens', 'pricing', 'how-it-works'].includes(page.id) && <Faq />}</div></section>
   <Booking />
 </Layout>

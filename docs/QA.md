@@ -39,3 +39,14 @@ Matt approved keeping Essential and using secure links. Intake and follow-up ser
 
 The site now uses direct branded links for contact and all booking CTAs; the embedded contact loader and dormant booking script were removed. CSP blocks third-party frames, connections, and form submissions. Type checks/build/five static checks passed; mobile navigation and the direct contact-link browser checks passed. The combined eighteen-page accessibility test exceeded its original thirty-second budget on this run, so its timeout was increased to ninety seconds for the same audits and rerun.
 The accessibility rerun passed all eighteen page/viewport audits in 16.9 seconds. All three browser suites now pass.
+
+## October 3 funnel setup
+
+- Matt confirmed supplied campaign/clinical copy approved, Essential retained, telehealth-only service, and Muse already managed by the client.
+- Inquiry confirmation template saved and enabled in SimplePractice. Optional referral-source question published on both native forms. Inquiry choices changed to assessment cost/payment, process, booking, availability, teen eligibility and other. Public contact rendering verified without submitting data.
+- Calendar scheduling/change notification prompts enabled. Existing 48-hour email reminders and 10-minute telehealth reminder retained. Google remains disconnected because the connection would export client identifiers and secure video links; scheduling continues natively.
+- New Louisville landing page, price-first audience introductions, conversion-page visible FAQs/schema, approved phone/email and clinic schema updated locally. Preview/noindex retained. No visitor tracking, patient storage or custom forms added.
+- `npm run verify` passed: zero Astro diagnostics, 12 built pages, five static checks. All three Playwright suites passed; accessibility/overflow covered ten public routes at desktop/mobile sizes (20 audits). Manual narrow-screen landing-page rendering reviewed.
+- `git diff --check` passed. No new Lighthouse run; existing performance numbers above predate these changes.
+- The three-touch nurture sequence is not automated. Muse instructions support generic practitioner reminders without patient data. No patient records opened or test messages/bookings submitted.
+- Cloudflare preview publication requires account access; production/DNS remains for Matt's later approval and cutover. See FUNNEL-OPERATIONS.md for the exact test steps and pending boundaries.

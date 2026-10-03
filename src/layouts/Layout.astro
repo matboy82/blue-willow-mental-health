@@ -15,7 +15,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 const nav = [{ href: '/how-it-works/', label: 'How it works' }, { href: '/pricing/', label: 'Pricing' }, { href: '/faq/', label: 'FAQ' }, { href: '/about/', label: 'About' }, { href: '/contact/', label: 'Contact' }];
 const schema = {
   '@context': 'https://schema.org', '@graph': [
-    { '@type': 'MedicalClinic', '@id': new URL('#practice', Astro.site).href, name: practice.name, url: Astro.site?.href, description: 'A focused telehealth ADHD practice for adolescents and adults, based in the St. Matthews area of Louisville and serving Kentucky.', areaServed: { '@type': 'State', name: 'Kentucky' }, medicalSpecialty: 'Psychiatric', priceRange: '$100–$225', availableService: { '@type': 'MedicalTherapy', name: 'Telehealth ADHD assessment' } },
+    { '@type': 'MedicalClinic', '@id': new URL('#practice', Astro.site).href, name: practice.name, url: Astro.site?.href, telephone: practice.telephone, email: practice.email, description: 'Blue Willow Mental Health is a telehealth ADHD practice in Louisville, Kentucky, offering flat-fee assessments for teens and adults.', areaServed: { '@type': 'State', name: 'Kentucky' }, medicalSpecialty: 'Psychiatric', priceRange: '$100–$225', availableService: { '@type': 'MedicalTherapy', name: 'Telehealth ADHD assessment' } },
     ...(faq ? [{ '@type': 'FAQPage', mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }] : []),
   ],
 };
@@ -42,9 +42,9 @@ const schema = {
   </div></header>
   <main id="main" tabindex="-1"><slot /></main>
   <footer><div class="wrap"><div class="foot-grid">
-    <div><h2>Blue Willow Mental Health</h2><p>Focused ADHD assessments for teens and adults.<br />St. Matthews · Louisville, KY<br />Telehealth across Kentucky</p></div>
+    <div><h2>Blue Willow Mental Health</h2><p>Focused ADHD assessments for teens and adults.<br />St. Matthews · Louisville, KY<br />Telehealth across Kentucky</p><p><a href={`tel:${practice.telephone}`}>{practice.phone}</a><br /><a href={`mailto:${practice.email}`}>{practice.email}</a><br />For clinical details, use the secure portal.</p></div>
     <div><h2>Explore the practice</h2><ul>{nav.map(n => <li><a href={n.href}>{n.label}</a></li>)}</ul></div>
-    <div><h2>Your next step</h2><ul><li><a href="/adhd-assessment-for-teens/">Assessments for teens</a></li><li><a href="/adhd-assessment-for-adults/">Assessments for adults</a></li><li><a href={practice.booking} rel="noreferrer">Secure client portal ↗</a></li><li><a href="/privacy/">Privacy notice</a></li></ul></div>
+    <div><h2>Your next step</h2><ul><li><a href="/adhd-assessment-louisville-ky/">ADHD assessments in Louisville</a></li><li><a href="/adhd-assessment-for-teens/">Assessments for teens</a></li><li><a href="/adhd-assessment-for-adults/">Assessments for adults</a></li><li><a href={practice.booking} rel="noreferrer">Secure client portal ↗</a></li><li><a href="/privacy/">Privacy notice</a></li></ul></div>
   </div><div class="foot-bottom"><span>© {new Date().getFullYear()} Blue Willow Mental Health.</span><p>This website does not collect clinical information. Clinical intake takes place in SimplePractice.</p></div></div></footer>
 </body>
 </html>

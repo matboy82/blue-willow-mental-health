@@ -5,9 +5,9 @@ eyebrow: For adults
 heading: Bring the question you’ve been carrying.
 ---
 
-Maybe you’ve wondered about ADHD for years. Maybe the strategies that used to get you through the day are taking more effort. You can ask for an assessment without having the answer in advance.
+Blue Willow Mental Health offers focused ADHD assessments for adults by telehealth across Kentucky, rooted in Louisville’s St. Matthews area. The initial assessment is **$225 flat**, including computer-based screening and a clinical review. Follow-ups are **$100**.
 
-Blue Willow Mental Health offers focused ADHD assessments for adults by telehealth across Kentucky, rooted in Louisville’s St. Matthews area.
+Maybe you’ve wondered about ADHD for years. Maybe the strategies that used to get you through the day are taking more effort. You can ask for an assessment without having the answer in advance.
 
 ## Your experience matters
 

@@ -1,5 +1,8 @@
 export const practice = {
   name: 'Blue Willow Mental Health',
+  phone: '859-208-7100',
+  telephone: '+18592087100',
+  email: 'jo@bluewillowmentalhealth.com',
   booking: 'https://jo-elbert.clientsecure.me/',
   contact: 'https://jo-elbert.clientsecure.me/contact-widget',
 };

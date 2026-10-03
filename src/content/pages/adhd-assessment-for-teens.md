@@ -5,9 +5,9 @@ eyebrow: For teens & families
 heading: Help your teen find a way forward.
 ---
 
-When schoolwork, routines, or everyday responsibilities are difficult, it can be hard to know what is going on. An ADHD assessment is a chance to ask questions and get a clearer understanding of the next step.
+Blue Willow Mental Health offers focused ADHD assessments for adolescents by telehealth across Kentucky. The initial assessment is **$225 flat**, including computer-based screening and a clinical review. The practice is rooted in the St. Matthews area of Louisville.
 
-Blue Willow Mental Health works with adolescents and their families by telehealth across Kentucky. The practice is rooted in the St. Matthews area of Louisville.
+When schoolwork, routines, or everyday responsibilities are difficult, it can be hard to know what is going on. An ADHD assessment is a chance to ask questions and get a clearer understanding of the next step.
 
 ## A fuller picture
 

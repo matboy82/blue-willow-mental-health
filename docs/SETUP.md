@@ -1,6 +1,6 @@
 # Cloudflare and integration setup
 
-The site is implemented locally. Accounts, DNS, widget settings, notifications, and clinical copy still need owner verification. Do not switch the public domain until the launch checklist below is complete. Domain registration stays at Squarespace.
+The site is implemented locally. Matt confirmed supplied clinical/campaign copy is approved on October 3. Native inquiry acknowledgment and source attribution are configured. End-to-end delivery and production hosting still need verification. Matt tests first, then authorizes production and connects the domain. Domain registration stays at Squarespace. See [FUNNEL-OPERATIONS.md](FUNNEL-OPERATIONS.md) for the current channel rollout and Muse handoff; its dated decisions supersede older account setup notes below.
 
 ## 1. Review the local site
 
@@ -44,6 +44,10 @@ Matt chose to keep Essential and use secure links on October 3, 2026. External b
 3. The public new-client flow was checked after the change: it now offers the intake service, Video Office, and selectable appointment times. No appointment was submitted.
 4. **Settings → Scheduling and inquiries → Contact form:** Practice contact form is enabled and the supplied contact URL opens the native form. Existing inquiry recipient/routing was preserved.
 5. **Settings → Profile → Notification preferences → Scheduling:** Both existing-client and prospective-client appointment-request notifications are enabled. These controls establish configuration, not proof of email delivery.
+6. **Settings → Client notifications → Email:** Approved Blue Willow inquiry acknowledgment saved with secure booking/contact links and an unmonitored-address notice. **Settings → Scheduling and inquiries → Contact form:** inquiry confirmation enabled, with native save confirmation.
+7. **Settings → Scheduling and inquiries → Prescreener:** Existing referral-source field renamed to "How did you hear about Blue Willow Mental Health?", optional, and published on both contact and new-client requests. Inquiry reason choices now match assessment services. Native public contact rendering verified without a submission.
+8. **Settings → Scheduling and inquiries → Calendar:** Scheduling/change notification prompts enabled. Existing cancellation policy preserved. Email reminders remain at 48 hours plus native 10-minute telehealth reminders, subject to client-level settings.
+9. Google Calendar remains disconnected. Patient scheduling stays in SimplePractice. A future connection requires the practice's Google Workspace BAA/privacy configuration and explicitly authorized calendar access, including telehealth links. Essential basic sync does not import personal Google events to block booking availability; that advanced capability requires Plus. No upgrade was made.
 
 ### What the practice should test before launch
 
@@ -78,7 +82,7 @@ Sources: [appointment widgets](https://support.simplepractice.com/hc/en-us/artic
 
 - **Search Console:** verify a Domain property using Google's DNS TXT in Cloudflare (or Squarespace before nameserver migration, carrying the record forward). Submit `https://bluewillowmentalhealth.com/sitemap-index.xml` only after production indexing is enabled. Inspect the homepage and two audience routes.
 - **Schema:** run Google's Rich Results Test and Schema.org validator on the live homepage/FAQ. MedicalClinic and FAQPage are included; no personal Physician entity, invented phone, office address, or credentials are published. Add verified provider data only if the brand rule is explicitly revised. Rich-result display is never guaranteed.
-- **Google Business Profile:** first verify eligibility. Google's [business eligibility policy](https://support.google.com/business/answer/13763036?hl=en-en) excludes online-only businesses. The supplied PRD says telehealth only, so do not fabricate an office or an in-person service area to obtain a listing. If the practice has a real eligible in-person service model, confirm the facts before claiming or creating a listing. Otherwise document this PRD requirement as not applicable.
+- **Google Business Profile:** Matt confirmed no in-person service on October 3. Google's [business eligibility policy](https://support.google.com/business/answer/13763036?hl=en-en) excludes online-only businesses. This channel and Google-review automation are not applicable to the current rollout. No office/service-area model should be fabricated; the owner should resolve any pending application with Google.
 - **Psychology Today / Facebook:** obtain verified profile URLs and admin access, then align the practice name, website, pricing, scope, and service area. Do not publish invented badges or profile links. No social links are rendered until supplied.
 
 ## 6. Analytics and privacy
@@ -89,7 +93,7 @@ Before enabling it, inventory actual beacon fields (including path and referrer)
 
 ## 7. Launch checklist
 
-- [ ] Matt reviews the layout and copy; Jody approves clinical scope, exact eligible ages, assessment inclusions, follow-up services, and cancellation/payment policies.
+- [x] Matt confirms all supplied copy approved (October 3); do not invent exact eligible ages or new clinical services. Review the current 60-minute slot versus approved 60–90 minute review wording during testing.
 - [ ] Tree mark approved for production or replaced with the complete supplied logo.
 - [ ] Secure-link design approved (completed October 3); verify final-domain links.
 - [ ] Real booking request → provider acceptance → client confirmation tested on the final domain.

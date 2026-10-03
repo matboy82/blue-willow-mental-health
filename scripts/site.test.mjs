@@ -9,7 +9,7 @@ async function htmlFiles(dir) {
 }
 const files = await htmlFiles('dist');
 test('all required public routes are generated', async () => {
-  for (const route of ['', 'how-it-works', 'pricing', 'faq', 'about', 'contact', 'privacy', 'adhd-assessment-for-teens', 'adhd-assessment-for-adults', 'styleguide']) {
+  for (const route of ['', 'how-it-works', 'pricing', 'faq', 'about', 'contact', 'privacy', 'adhd-assessment-for-teens', 'adhd-assessment-for-adults', 'adhd-assessment-louisville-ky', 'styleguide']) {
     await access(path.join('dist', route, 'index.html'));
   }
   await access('dist/404.html');
