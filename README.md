@@ -19,7 +19,7 @@ In restricted environments set ASTRO_TELEMETRY_DISABLED=1. CI does this automati
 
 Implemented: homepage, process, pricing, FAQ, about, contact, privacy, teen/adult audience pages, styleguide, custom 404, self-hosted fonts, supplied tree mark, favicon, structured data, sitemap, security headers, and CI.
 
-Booking uses the supplied secure portal link. The official widget has a dedicated integration slot; when configured it loads only on request. The contact form can load the supplied SimplePractice URL on request with a direct fallback. No patient data backend, custom contact Worker, analytics, or marketing trackers are included.
+Booking and contact open the native secure SimplePractice pages using branded site buttons. Matt approved keeping Essential with secure links on October 3, 2026. No external widgets or forms load on the website. No patient data backend, custom contact Worker, analytics, or marketing trackers are included.
 
 **Not deployed.** Account setup, real booking/inquiry tests, notification delivery, clinical sign-off, and release authorization remain outstanding. Preview builds are noindex by default; PUBLIC_SITE_ENV=production enables production indexing.
 
@@ -31,7 +31,7 @@ Booking uses the supplied secure portal link. The official widget has a dedicate
 - Homepage: src/pages/index.astro.
 - Shared FAQs and practice URLs: src/lib/practice.ts.
 - Pricing cards: src/components/Pricing.astro; keep amounts in Markdown/homepage/schema in sync.
-- Official widget snippet: src/components/simplepractice-booking.html.
+- Retired widget slot: src/components/simplepractice-booking.html (not rendered).
 - Shared design: src/styles/global.css; approved blue/amber tokens follow the mockup and PRD.
 
 See [PLACEHOLDERS.md](PLACEHOLDERS.md), [architecture decisions](docs/ADR-001-static-site.md), and [QA results](docs/QA.md).

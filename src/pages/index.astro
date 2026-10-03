@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Pricing from '../components/Pricing.astro';
 import Faq from '../components/Faq.astro';
 import Booking from '../components/Booking.astro';
+import { practice } from '../lib/practice';
 const steps = [
   { title: 'Book online', text: 'Request a time through our secure portal. The practice confirms your appointment and provides your next steps.' },
   { title: 'Complete your screening', text: 'Computer-based screening adds objective information to the picture. The practice will guide you through what to complete.' },
@@ -13,7 +14,7 @@ const steps = [
   <section class="hero"><div class="wrap hero-grid">
     <div><span class="eyebrow">Louisville roots. Kentucky reach.</span><h1>Is it ADHD?<br />Get a clear answer.</h1>
       <p class="lead">Focused ADHD assessments for teens and adults — from home, by telehealth. Objective screening, a specialist’s perspective, and honest flat pricing.</p>
-      <div class="hero-ctas"><a class="btn" href="#book">Book your assessment</a><a class="btn btn-ghost" href="#how">How it works</a></div>
+      <div class="hero-ctas"><a class="btn" href={practice.booking} rel="noreferrer">Book your assessment</a><a class="btn btn-ghost" href="#how">How it works</a></div>
       <p class="micro-trust"><strong>$225 flat intake</strong> · Licensed psychiatric provider<br />Telehealth across Kentucky · Cash pay</p>
     </div>
     <figure class="hero-art"><img src="/willow-mark.jpg" alt="A blue willow tree with long, flowing branches" width="440" height="508" fetchpriority="high" /><figcaption>Rooted in care. Focused on clarity.<small>A little less uncertainty. A way forward.</small></figcaption></figure>

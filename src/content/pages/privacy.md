@@ -19,7 +19,7 @@ The site is designed to be hosted by Cloudflare Pages. Hosting providers may pro
 
 Scheduling, payment, clinical intake, and secure communications happen in SimplePractice. Following a portal link or loading the contact form connects you to that service. Its own terms, privacy practices, and the practice’s clinical privacy documents apply there.
 
-The contact form loads on this website only when you select **Load secure contact form**. You can also open it directly in SimplePractice. Public pages do not send URL query parameters or referrer information to the portal.
+The contact and booking buttons take you to SimplePractice. No third-party form or scheduling widget is embedded in this website. Public pages do not send URL query parameters or referrer information to the portal.
 
 ## Your clinical privacy rights
 

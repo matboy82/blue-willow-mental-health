@@ -31,35 +31,33 @@ Copy lives in `src/content/pages/*.md`, shared FAQs/practice URLs in `src/lib/pr
 
 Cloudflare's [Astro Pages guide](https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/) describes the deployment flow. The repo includes GitHub CI for type checks, static route/privacy tests, browser accessibility checks, and mobile Lighthouse thresholds. Pages deployment is separate from GitHub CI; only promote a reviewed revision with passing checks.
 
-## 3. Finish SimplePractice
+## 3. SimplePractice: approved Essential setup
 
-The working direct paths are:
+Matt chose to keep Essential and use secure links on October 3, 2026. External booking/contact widgets require Plus; no embed code or upgrade is needed for the approved design. The website buttons use Blue Willow's amber/blue styling; the destination forms retain SimplePractice's own interface, which website CSS cannot change.
 
 - Booking/client portal: https://jo-elbert.clientsecure.me/
 - Contact: https://jo-elbert.clientsecure.me/contact-widget
 
-The site never receives a booking, payment, or contact submission. The contact page can load the supplied SimplePractice URL after a visitor clicks; a direct link remains available if framing is blocked. Framed contact delivery has not been certified by a live inquiry test.
+### Account settings verified or updated
 
-### Appointment widget
+1. **Settings → Scheduling and inquiries → Client portal permissions:** Client Portal and Online appointment requests are enabled. New clients are allowed. Existing policy is 24-hour notice and a one-week booking horizon; these were preserved.
+2. **Settings → Services and products → Services:** Existing intake code 99205 now has the agreed **$225** rate, its existing **60-minute** duration, online requests enabled, and **Allow for New Clients enabled**. Existing follow-up code 99214 now has the agreed **$100** rate, its existing **30-minute** duration, online requests enabled, and new-client requests disabled. Code identities/descriptions and appointment durations were preserved. These are service defaults; existing client-specific fees and historical appointments were not edited.
+3. The public new-client flow was checked after the change: it now offers the intake service, Video Office, and selectable appointment times. No appointment was submitted.
+4. **Settings → Scheduling and inquiries → Contact form:** Practice contact form is enabled and the supplied contact URL opens the native form. Existing inquiry recipient/routing was preserved.
+5. **Settings → Profile → Notification preferences → Scheduling:** Both existing-client and prospective-client appointment-request notifications are enabled. These controls establish configuration, not proof of email delivery.
 
-1. Sign in to the practice account. Enable online appointment requests and new-client availability for the intended services and video office.
-2. Current official navigation is **Settings → Scheduling and inquiries → Widgets** (older interfaces may say Appointment request widget / Online Booking).
-3. Copy the **complete official appointment-request widget snippet**. The external widget currently requires the SimplePractice Plus plan; check the account's entitlement.
-4. Replace the comment in **`src/components/simplepractice-booking.html`** with that exact snippet. Preserve its `data-spwidget-scope` attribute; the site uses it to detect configuration. Use practice-level routing if multiple clinicians will join. Do not invent a widget ID.
-5. Rebuild. The booking section displays the widget alongside the direct portal fallback. The code is placed below the fold and loads only after a visitor selects Load appointment options. If the snippet uses another CDN/domain, review and narrowly update `public/_headers` instead of removing the content security policy.
-6. Verify the widget opens at 360px and desktop sizes, available services have the correct $225/$100 prices, appointment times use the intended timezone, and confirmation follows provider acceptance. Do not describe a request as an already confirmed booking.
+### What the practice should test before launch
 
-Source: [SimplePractice appointment widget instructions](https://support.simplepractice.com/hc/en-us/articles/115004734123-Adding-the-appointment-request-widget-to-your-website).
+1. Open the website booking button, select New Client, confirm the intake and Video Office, and inspect available times. Provider acceptance is still required; an appointment request is not a confirmed visit.
+2. With the practice's approval, submit a clearly labeled synthetic booking request and contact inquiry using no real patient data. Verify the practice receives alerts within two minutes, then accepts the test request and receives the expected client confirmation. Test duplicate submission/spam handling within SimplePractice. Remove test records using its normal supported recovery/deletion workflow.
+3. Confirm the existing contact recipient is the intended practice inbox and email privacy/BAA requirements are met. Client reminders and practitioner request alerts are separate settings.
+4. Existing clients should use the portal sign-in path. Confirm client-specific fees reflect the intended treatment plan if they differ from service defaults.
 
-### Contact and immediate notifications
+### If embedded widgets are wanted later
 
-1. Under **Settings → Scheduling and inquiries → Contact form**, verify the native form and practice routing. If the copied official contact embed has a different URL than the supplied `/contact-widget`, update `practice.contact` in `src/lib/practice.ts`.
-2. Enable practitioner notifications for **new appointment requests and contact inquiries** in the account's notification preferences. Client reminder settings are separate and do not prove practitioner inquiry alerts work.
-3. Confirm the recipient email is the intended practice inbox; confirm mobile/push or SMS options available on the subscribed plan. Start with native email alerts; optional SMS is still an owner decision. Do not include clinical content in alert messages.
-4. With practice approval, send a clearly identified synthetic inquiry and appointment request, using no real patient data. Measure delivery to the practice inbox (target under two minutes), provider acceptance, and client confirmation. Check junk filters. Remove test records in SimplePractice afterward.
-5. Check repeated submission behavior in SimplePractice. The website cannot enforce idempotency inside the vendor's form; do not mark the PRD's double-submit criterion passed without the account test.
+The account quoted Plus at $49.50/month during its 50% promotion, then $99/month plus applicable tax. The screen labels the offer first 12 months; remaining promotion duration and prorated upgrade cost were not established. No subscription change was made. If upgrading later, obtain the official codes under Settings → Scheduling and inquiries → Widgets. The retired snippet file is not rendered. Adding an embed will require updating the integration, CSP, privacy copy, and tests.
 
-Source: [SimplePractice scheduling/contact settings](https://support.simplepractice.com/hc/en-us/articles/24683475477261-Navigating-your-Client-Care-settings). No custom forwarding Worker was added because the PRD prefers the native contact path. Google Workspace BAA confirmation is still required for any notification flow containing sensitive information. Email forwarding or SMS automation needs a separate reviewed scope.
+Sources: [appointment widgets](https://support.simplepractice.com/hc/en-us/articles/115004734123-Adding-the-appointment-request-widget-to-your-website), [native contact forms](https://support.simplepractice.com/hc/en-us/articles/33457058133901-Managing-the-integrated-contact-form).
 
 ## 4. Point the public domain to Pages
 
@@ -72,7 +70,7 @@ Source: [SimplePractice scheduling/contact settings](https://support.simplepract
 5. In the Pages project, add **both** `bluewillowmentalhealth.com` and `www.bluewillowmentalhealth.com` through **Custom domains**. Let Cloudflare create the required records; replace old web A/AAAA/CNAME records only when they conflict. Do not replace email records. Wait for domain and HTTPS certificate activation. Review existing CAA records if certificate issuance fails.
 6. Configure a Cloudflare redirect rule from `www.bluewillowmentalhealth.com` to `https://bluewillowmentalhealth.com`, preserving paths. Drop query strings for this public healthcare site unless a separately reviewed need exists. The site's canonical URLs use the apex domain. Redirect aliases/Pages-host traffic only after the production hostname works, preserving a usable preview hostname.
 7. After Matt authorizes release and clinical/notification checks pass, set the **production build environment** to **`PUBLIC_SITE_ENV=production`** and **`SITE_URL=https://bluewillowmentalhealth.com`**. Rebuild the approved revision. Leave branch/PR previews at `preview`.
-8. Verify root and www HTTPS, redirects, each route, `robots.txt`, `/sitemap-index.xml`, canonical tags, headers, mobile navigation, the actual widget, contact alerts, and test booking confirmation. Confirm Workspace receives and sends email.
+8. Verify root and www HTTPS, redirects, each route, `robots.txt`, `/sitemap-index.xml`, canonical tags, headers, mobile navigation, the secure booking/contact links, contact alerts, and test booking confirmation. Confirm Workspace receives and sends email.
 9. Retire the old Squarespace parking site only after verification. Keep domain registration, renewal, and Workspace service active. Changing website hosting is not permission to cancel unrelated subscriptions.
 
 **Rollback:** restore the previous website records in the active Cloudflare zone to route web traffic back to the saved Squarespace destination. Keep all mail records. If necessary, restore the original nameservers at Squarespace, coordinating DNSSEC and allowing propagation. Do not destroy the previous site before the new one passes verification. A Pages code rollback can be performed from the project's deployment history.
@@ -94,12 +92,12 @@ Before enabling it, inventory actual beacon fields (including path and referrer)
 
 - [ ] Matt reviews the layout and copy; Jody approves clinical scope, exact eligible ages, assessment inclusions, follow-up services, and cancellation/payment policies.
 - [ ] Tree mark approved for production or replaced with the complete supplied logo.
-- [ ] Official booking snippet configured (or explicitly approve direct-portal booking as the final design).
+- [ ] Secure-link design approved (completed October 3); verify final-domain links.
 - [ ] Real booking request → provider acceptance → client confirmation tested on the final domain.
 - [ ] Inquiry alert received within two minutes; duplicate/spam behavior checked within SimplePractice.
 - [ ] Workspace notification privacy/BAA status and optional SMS decision recorded.
 - [ ] Profile URLs verified; Google Business Profile eligibility resolved.
-- [ ] CI passes; live mobile Lighthouse scores ≥90 and LCP <2.5s checked after widget configuration.
+- [ ] CI passes; live mobile Lighthouse scores ≥90 and LCP <2.5s checked with the approved secure-link design.
 - [ ] Preview and production indexing settings verified; no test inquiry details in repo, chat, analytics, or logs.
 - [ ] Public domain/HTTPS/mail checked; Matt authorizes cutover; rollback values retained.
 - [ ] All placeholders resolved or explicitly closed with an approved alternative.

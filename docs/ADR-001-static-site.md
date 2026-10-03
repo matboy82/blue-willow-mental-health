@@ -13,3 +13,6 @@ Status: Implemented locally; infrastructure and clinical approval pending.
 - Telehealth-only Google Business Profile eligibility must be resolved under Google's policy; this build does not fabricate an in-person office.
 
 See SETUP.md for account actions, approval gates, and verification.
+
+## Update — October 3, 2026
+Matt chose Essential with secure links. The website no longer embeds contact or booking forms; the retired booking HTML is not imported. The CSP now blocks frames and third-party scripts/connections. Account intake/follow-up defaults updated to $225/$100 per Matt, and intake new-client requests enabled. Native contact and appointment-request alerts were already enabled. Delivery and actual booking submissions remain untested.

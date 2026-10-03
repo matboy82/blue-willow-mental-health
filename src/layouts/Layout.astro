@@ -37,8 +37,8 @@ const schema = {
   <a class="skip-link" href="#main">Skip to content</a>
   <header><div class="wrap nav">
     <a class="brand" href="/" aria-label="Blue Willow Mental Health home"><img src="/willow-mark.jpg" alt="" width="46" height="52" /><span class="brand-name">Blue Willow<small>MENTAL HEALTH</small></span></a>
-    <nav class="nav-links" aria-label="Main navigation">{nav.map(n => <a href={n.href} aria-current={Astro.url.pathname === n.href ? 'page' : undefined}>{n.label}</a>)}<a class="btn btn-sm" href="/#book">Book assessment</a></nav>
-    <details class="mobile-menu"><summary aria-label="Navigation menu">Menu</summary><nav aria-label="Mobile navigation">{nav.map(n => <a href={n.href}>{n.label}</a>)}<a href="/#book">Book assessment</a></nav></details>
+    <nav class="nav-links" aria-label="Main navigation">{nav.map(n => <a href={n.href} aria-current={Astro.url.pathname === n.href ? 'page' : undefined}>{n.label}</a>)}<a class="btn btn-sm" href={practice.booking} rel="noreferrer">Book assessment</a></nav>
+    <details class="mobile-menu"><summary aria-label="Navigation menu">Menu</summary><nav aria-label="Mobile navigation">{nav.map(n => <a href={n.href}>{n.label}</a>)}<a href={practice.booking} rel="noreferrer">Book assessment</a></nav></details>
   </div></header>
   <main id="main" tabindex="-1"><slot /></main>
   <footer><div class="wrap"><div class="foot-grid">

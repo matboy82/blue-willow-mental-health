@@ -4,21 +4,7 @@ import { practice } from '../lib/practice';
 ---
 <Layout title="Contact the practice" description="Ask Blue Willow Mental Health about appointments, age eligibility, and services through the secure SimplePractice contact form.">
   <section class="page-hero"><div class="wrap"><div class="kicker">We’re here to help</div><h1>A question before you book?</h1><p class="lead">Contact the practice through SimplePractice. Keep clinical details in the secure portal.</p></div></section>
-  <section class="block"><div class="wrap contact-grid"><div class="prose"><h2>Start with the basics.</h2><p>Ask about appointment availability, age eligibility, or whether our services fit what you’re looking for.</p><p>Please do not send medical history or other sensitive information through ordinary email. Clinical intake belongs in SimplePractice.</p><a class="btn" href={practice.contact} rel="noreferrer">Open the secure contact form ↗</a><p class="small-note">Already a client? Use the <a href={practice.booking} rel="noreferrer">secure client portal</a>.</p><aside class="notice"><h2>Need immediate support?</h2><p>This contact form is not monitored for emergencies. If you are in immediate danger, call 911. For crisis support in the U.S., call or text 988.</p></aside></div>
-  <div class="contact-panel"><div class="kicker">Secure inquiry</div><h2>Reach out to Blue Willow.</h2><p>The contact form is provided by SimplePractice. Load it here, or open it directly using the link.</p><button class="btn btn-ghost" id="load-contact" type="button">Load secure contact form</button><div id="contact-frame" data-contact-url={practice.contact}></div><p class="small-note">If the form does not appear, <a href={practice.contact} rel="noreferrer">open it in the secure portal ↗</a>.</p></div>
+  <section class="block"><div class="wrap contact-grid"><div class="prose"><h2>Start with the basics.</h2><p>Ask about appointment availability, age eligibility, or whether our services fit what you’re looking for.</p><p>Please do not send medical history or other sensitive information through ordinary email. Clinical intake belongs in SimplePractice.</p><p class="small-note">Already a client? Use the <a href={practice.booking} rel="noreferrer">secure client portal</a>.</p><aside class="notice"><h2>Need immediate support?</h2><p>This contact form is not monitored for emergencies. If you are in immediate danger, call 911. For crisis support in the U.S., call or text 988.</p></aside></div>
+  <div class="contact-panel"><div class="kicker">Secure inquiry</div><h2>Reach out to Blue Willow.</h2><p>Send your question through our secure SimplePractice contact form. Your inquiry goes directly to the practice.</p><a class="btn" href={practice.contact} rel="noreferrer">Send a secure inquiry ↗</a><p class="small-note">You’ll continue to SimplePractice to complete the form.</p></div>
   </div></section>
 </Layout>
-<script>
-  const button = document.getElementById('load-contact');
-  button?.addEventListener('click', () => {
-    const container = document.getElementById('contact-frame');
-    if (!container || container.querySelector('iframe')) return;
-    const iframe = document.createElement('iframe');
-    iframe.src = container.dataset.contactUrl!;
-    iframe.title = 'SimplePractice secure contact form';
-    iframe.referrerPolicy = 'no-referrer';
-    iframe.height = '720';
-    container.appendChild(iframe);
-    button.hidden = true;
-  });
-</script>

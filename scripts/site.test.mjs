@@ -40,10 +40,10 @@ test('pages use correct privacy and search defaults', async () => {
     for (const [, json] of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)) JSON.parse(json);
   }
 });
-test('contact form waits for explicit user interaction', async () => {
+test('contact stays entirely in the native secure portal', async () => {
   const html = await readFile('dist/contact/index.html', 'utf8');
   assert.doesNotMatch(html, /<iframe/);
-  assert.match(html, /id="load-contact"/);
+  assert.match(html, /Send a secure inquiry/);
   assert.match(html, /https:\/\/jo-elbert\.clientsecure\.me\/contact-widget/);
 });
 test('preview robots blocks indexing unless production is explicit', async () => {
