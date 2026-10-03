@@ -1,16 +1,17 @@
 ---
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
-import '@fontsource/inter/700.css';
-import '@fontsource/fraunces/500.css';
-import '@fontsource/fraunces/600.css';
-import '@fontsource/fraunces/700.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/latin-700.css';
+import '@fontsource/fraunces/latin-500.css';
+import '@fontsource/fraunces/latin-600.css';
+import '@fontsource/fraunces/latin-700.css';
 import '../styles/global.css';
 import { practice, faqs } from '../lib/practice';
 interface Props { title: string; description: string; faq?: boolean; noindex?: boolean }
 const { title, description, faq = false, noindex = false } = Astro.props;
 const production = import.meta.env.PUBLIC_SITE_ENV === 'production';
+const isHome = Astro.url.pathname === '/';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const nav = [{ href: '/how-it-works/', label: 'How it works' }, { href: '/pricing/', label: 'Pricing' }, { href: '/faq/', label: 'FAQ' }, { href: '/about/', label: 'About' }, { href: '/contact/', label: 'Contact' }];
 const schema = {
@@ -25,7 +26,7 @@ const schema = {
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title} | Blue Willow Mental Health</title><meta name="description" content={description} />
-  <link rel="canonical" href={canonical} /><link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href={canonical} /><link rel="icon" type="image/svg+xml" href="/favicon.svg" />{isHome && <link rel="preload" as="image" href="/willow-mark.webp" type="image/webp" fetchpriority="high" />}
   <meta name="robots" content={production && !noindex ? 'index, follow' : 'noindex, nofollow'} />
   <meta name="referrer" content="no-referrer" />
   <meta property="og:title" content={`${title} | Blue Willow Mental Health`} /><meta property="og:description" content={description} />
@@ -36,7 +37,7 @@ const schema = {
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header><div class="wrap nav">
-    <a class="brand" href="/" aria-label="Blue Willow Mental Health home"><img src="/willow-mark.jpg" alt="" width="46" height="52" /><span class="brand-name">Blue Willow<small>MENTAL HEALTH</small></span></a>
+    <a class="brand" href="/"><picture><source srcset="/willow-mark.webp" type="image/webp" /><img src="/willow-mark.jpg" alt="" width="46" height="52" /></picture><span class="brand-name">Blue Willow<small>MENTAL HEALTH</small></span></a>
     <nav class="nav-links" aria-label="Main navigation">{nav.map(n => <a href={n.href} aria-current={Astro.url.pathname === n.href ? 'page' : undefined}>{n.label}</a>)}<a class="btn btn-sm" href={practice.booking} rel="noreferrer">Book assessment</a></nav>
     <details class="mobile-menu"><summary aria-label="Navigation menu">Menu</summary><nav aria-label="Mobile navigation">{nav.map(n => <a href={n.href}>{n.label}</a>)}<a href={practice.booking} rel="noreferrer">Book assessment</a></nav></details>
   </div></header>
