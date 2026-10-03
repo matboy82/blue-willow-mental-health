@@ -22,12 +22,11 @@ Copy lives in `src/content/pages/*.md`, shared FAQs/practice URLs in `src/lib/pr
 
 ## 2. Connect GitHub to Cloudflare Pages
 
-1. Push this working tree and its lockfile to the existing `matboy82/blue-willow-mental-health` repository after review. No commit or push was performed by the build task.
-2. In the BIS-owned Cloudflare account, open **Workers & Pages**, create a **Pages** project, and connect the repository. Use the Pages Git integration, not an SSR Worker template.
-3. Choose Astro (or enter settings manually): build command **`npm run build`**, output directory **`dist`**, repository root unchanged. No adapter, database, Worker, or secret is needed.
-4. Use `main` initially as the test deployment branch, following the PRD. Set **`NODE_VERSION=22`**, **`ASTRO_TELEMETRY_DISABLED=1`**, **`PUBLIC_SITE_ENV=preview`**, **`SITE_URL=https://bluewillowmentalhealth.com`**. Preview deployments must retain `PUBLIC_SITE_ENV=preview` after launch.
-5. Deploy and review the assigned `*.pages.dev` URL. Keep Pages automatic Web Analytics disabled. Builds default to `noindex, nofollow` and a blocking `robots.txt` unless production is explicitly selected.
-6. Optional test domain: add `test.bluewillowmentalhealth.com` under **Pages → Custom domains** first. Then add a Squarespace DNS CNAME named `test` pointing to the exact assigned `YOUR-PROJECT.pages.dev` host, without `https://` or a path. Review the HTTPS test URL after validation.
+> **Done 2026-10-03:** working tree pushed by Matt (`ac58ada4`); Pages project connected via Git integration; test deployment live at https://blue-willow-mental-health.pages.dev (verified — matches the approved mockup). Steps 2–5 below are complete; the remaining production cutover is step 6+.
+2. ~~In the BIS-owned Cloudflare account, open **Workers & Pages**, create a **Pages** project, and connect the repository.~~ Done.
+3. ~~Choose Astro: build command **`npm run build`**, output directory **`dist`**.~~ Done (`NODE_VERSION=22`, `ASTRO_TELEMETRY_DISABLED=1`, `PUBLIC_SITE_ENV=preview`).
+4. ~~Deploy and review the assigned `*.pages.dev` URL.~~ Done — live and verified. Pages automatic Web Analytics stays disabled.
+5. **Production cutover (needs Matt's release authorization):** add the custom domain under **Pages → Custom domains**; set **`PUBLIC_SITE_ENV=production`** on the production deployment; point Squarespace DNS (apex → Cloudflare per the PRD note that the apex Pages domain requires Cloudflare DNS nameservers — confirm the exact record plan before touching Workspace mail DNS); verify HTTPS, indexing enabled, and sitemap; keep preview deployments on `PUBLIC_SITE_ENV=preview`.
 
 Cloudflare's [Astro Pages guide](https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/) describes the deployment flow. The repo includes GitHub CI for type checks, static route/privacy tests, browser accessibility checks, and mobile Lighthouse thresholds. Pages deployment is separate from GitHub CI; only promote a reviewed revision with passing checks.
 
