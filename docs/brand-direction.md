@@ -58,3 +58,13 @@ Not the $3,000 battery. Not the 15-minute med check. The middle that respects bo
 
 ## Status
 Mockup built 2026-10-02 around the real tree mark (`design/homepage-mockup.html`); amber CTA buttons approved final by Matt 2026-10-03 after trying deep blue. Pending: full (uncropped) logo lockup from Jody — currently using the tree mark only.
+
+## BIS Design Differentiation Standard
+
+This build must satisfy the BIS Design Differentiation Standard
+(`00-System/Standards/Design Differentiation Standard.md` in BIS-Vault).
+Read it before designing anything. Flag any requirement you cannot meet
+before writing code. In particular: no banned default font pairings, no
+stock photography at launch, no lorem-grade copy, the full SEO/AI ship list
+(keyword title, real meta description, canonical, OG/Twitter, JSON-LD,
+robots.txt, sitemap.xml, llms.txt), and the pre-ship differentiation review.
