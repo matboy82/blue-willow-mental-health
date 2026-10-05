@@ -36,3 +36,30 @@ test('contact uses the native secure link without loading third-party forms', as
   await expect(page.getByRole('link', { name: 'Send a secure inquiry' })).toHaveAttribute('href', 'https://jo-elbert.clientsecure.me/contact-widget');
   await expect(page.getByRole('link', { name: 'Send a secure inquiry' })).toHaveAttribute('rel', 'noreferrer');
 });
+
+test('first render loads two font files and appropriately sized cached brand assets', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  const fonts = await page.evaluate(() => performance.getEntriesByType('resource').filter(r => /\.woff2/.test(r.name)).map(r => r.name));
+  expect(fonts).toHaveLength(2);
+  const logo = page.locator('.brand img');
+  const hero = page.locator('.hero-art img');
+  await expect(logo).toHaveJSProperty('complete', true);
+  await expect(hero).toHaveJSProperty('complete', true);
+  expect(await logo.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeLessThanOrEqual(92);
+  for (const image of [logo, hero]) {
+    const src = await image.evaluate((img: HTMLImageElement) => img.currentSrc);
+    expect(new URL(src).pathname).toMatch(/^\/_astro\/.*\.webp$/);
+  }
+  expect(await hero.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+  await page.goto('/pricing/');
+  await expect(page.locator('.brand img')).toHaveJSProperty('complete', true);
+});
+
+test('main content stays visible when font downloads fail', async ({ page }) => {
+  await page.route('**/*.woff2', route => route.abort());
+  await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Book your assessment', exact: true }).first()).toBeVisible();
+});
