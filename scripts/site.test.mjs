@@ -9,7 +9,7 @@ async function htmlFiles(dir) {
 }
 const files = await htmlFiles('dist');
 test('all required public routes are generated', async () => {
-  for (const route of ['', 'how-it-works', 'pricing', 'faq', 'about', 'contact', 'privacy', 'adhd-assessment-for-teens', 'adhd-assessment-for-adults', 'adhd-assessment-louisville-ky', 'styleguide']) {
+  for (const route of ['', 'booking', 'how-it-works', 'pricing', 'faq', 'about', 'contact', 'privacy', 'adhd-assessment-for-teens', 'adhd-assessment-for-adults', 'adhd-assessment-louisville-ky', 'styleguide']) {
     await access(path.join('dist', route, 'index.html'));
   }
   await access('dist/404.html');
@@ -32,7 +32,7 @@ test('pages use correct privacy and search defaults', async () => {
     const html = await readFile(file, 'utf8');
     assert.match(html, /name="referrer" content="no-referrer"/);
     assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, file);
-    assert.doesNotMatch(html, /googletagmanager|google-analytics|cloudflareinsights|fonts\.googleapis|fonts\.gstatic/);
+    assert.doesNotMatch(html, /googletagmanager|google-analytics|fonts\.googleapis|fonts\.gstatic/);
     assert.doesNotMatch(html, /<form(?:\s|>)/);
     assert.doesNotMatch(html, /Jody Elbert|Jo Elbert|guaranteed diagnosis|Seen this week|Free cancellation/);
     const robots = process.env.PUBLIC_SITE_ENV === 'production' && !/styleguide|404/.test(file) ? 'index, follow' : 'noindex, nofollow';
@@ -47,12 +47,13 @@ test('contact stays entirely in the native secure portal', async () => {
   assert.match(html, /https:\/\/jo-elbert\.clientsecure\.me\/contact-widget/);
 });
 test('WebMCP exposes only public, non-clinical actions', async () => {
-  const html = await readFile('dist/index.html', 'utf8');
-  assert.match(html, /document\.modelContext/);
-  assert.match(html, /get_public_practice_info/);
-  assert.match(html, /open_booking_flow/);
-  assert.match(html, /open_secure_contact/);
-  assert.doesNotMatch(html, /clinicalHistory|diagnosisDetails/i);
+  const scripts = (await readdir('dist/_astro')).filter(name => name.endsWith('.js'));
+  const code = (await Promise.all(scripts.map(name => readFile(path.join('dist/_astro', name), 'utf8')))).join('\n');
+  assert.match(code, /document\.modelContext/);
+  assert.match(code, /get_public_practice_info/);
+  assert.match(code, /open_booking_flow/);
+  assert.match(code, /open_secure_contact/);
+  assert.doesNotMatch(code, /clinicalHistory|diagnosisDetails/i);
 });
 test('preview robots blocks indexing unless production is explicit', async () => {
   const robots = await readFile('dist/robots.txt', 'utf8');

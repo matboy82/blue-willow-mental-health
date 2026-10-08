@@ -13,10 +13,11 @@ The site is implemented and pushed (`ac58ada4`, Matt, 2026-10-03); test deployme
 | Practitioner notifications / Workspace privacy | Practice | Verify recipient, native settings, BAA/privacy requirements for email | Open |
 | SMS notifications | Matt / practice | Choose native email-only alerts or verify vendor-supported SMS/push with privacy review | Open |
 | Google Business Profile eligibility | Matt | Telehealth-only confirmed; not applicable to current rollout; address application previously submitted, pending resolution belongs to owner | Closed: not applicable |
-| Psychology Today profile | Matt | Verify URL/profile before adding link or badge | Open |
+| Psychology Today profile | Practice | Badge/profile verified October 8; owner aligns profile with approved website details | Badge complete; profile update pending |
 | Facebook page admin / consistency | Matt | Owner access confirmed 2026-10-03; align facts and website URL after prod cutover | In progress |
 | Instagram account | Matt | Verify/link in Meta Business settings; cross-post from FB page | Open |
-| Analytics decision | Matt / practice | No analytics enabled; approve disabled state or review beacon/privacy/CSP before activation | Open |
+| Analytics decision | Matt / practice | Requested October 8; Web Analytics and booking-click dataset configured, privacy/CSP updated | Configured; deployment verification pending |
+| Automatic source in booking notification | Practice / SimplePractice | Vendor confirms supported UTM prefill and practitioner notification field; synthetic receipt test | Unverified; source-bearing click fallback implemented |
 | Search Console | Matt | Verify domain and submit sitemap after production indexing is enabled | Open |
 | Domain / mail / HTTPS cutover | Matt | Follow runbook, retain rollback records, preserve Workspace DNS, verify final host | Open |
 | Release approval and live performance | Matt / practice | Review final revision and inputs; authorize launch; rerun checks with secure links on live domain | Open |

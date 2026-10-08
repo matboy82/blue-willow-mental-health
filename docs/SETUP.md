@@ -87,9 +87,9 @@ Sources: [appointment widgets](https://support.simplepractice.com/hc/en-us/artic
 
 ## 6. Analytics and privacy
 
-The build intentionally has **no analytics enabled**, including on previews. Cloudflare Web Analytics is the preferred optional choice, subject to the practice's privacy review. Its [FAQ](https://developers.cloudflare.com/web-analytics/faq/) says it does not currently log query strings; this alone is not a compliance assessment.
+On October 8 Matt requested Cloudflare Web Analytics and source-bearing booking clicks, superseding the previous disabled state. See [ATTRIBUTION.md](ATTRIBUTION.md) for the configured Pages beacon, dedicated event binding, approved public campaign codes and notification limitations. The matching privacy notice and narrow CSP are included in the build. Cloudflare's [FAQ](https://developers.cloudflare.com/web-analytics/faq/) documents that Web Analytics does not support UTMs/custom events and does not log query strings; the separate booking-click collector supplies only registered public campaign dimensions.
 
-Before enabling it, inventory actual beacon fields (including path and referrer), confirm they are acceptable for this healthcare site, and check applicable account/contracts settings. Do not track portal actions, inquiry contents, user IDs, medical details, or session recordings. If analytics cannot pass that review, keep it disabled. Enabling a beacon also requires a narrow CSP allowlist update and a matching revision of `src/content/pages/privacy.md`; Pages automatic injection alone is not configured or approved by this build. Hosting access logs may still receive URLs, so query stripping at analytics does not make website URLs a secure intake channel.
+Do not track portal actions, inquiry contents, user IDs, medical details or session recordings. Inspect the deployed beacon once and check that it is not duplicated or blocked by CSP. Hosting access logs may still receive URLs, so campaign parameters must contain public marketing codes only. Query stripping does not make website URLs a secure intake channel. Attribution events count handoffs, not confirmed bookings or revenue.
 
 ## 7. Launch checklist
 

@@ -16,3 +16,7 @@ See SETUP.md for account actions, approval gates, and verification.
 
 ## Update — October 3, 2026
 Matt chose Essential with secure links. The website no longer embeds contact or booking forms; the retired booking HTML is not imported. The CSP now blocks frames and third-party scripts/connections. Account intake/follow-up defaults updated to $225/$100 per Matt, and intake new-client requests enabled. Native contact and appointment-request alerts were already enabled. Delivery and actual booking submissions remain untested.
+
+## Update — October 8, 2026
+
+Matt requested PT badges, Cloudflare Web Analytics and session UTM booking attribution. An official image-only badge avoids the vendor script's duplicate-anchor limitation. Pages injects the Web Analytics beacon; CSP allows only its documented origins. A bounded Pages Function records public marketing booking-click dimensions in a dedicated Analytics Engine dataset; it receives no form or patient data. Native Essential links remain intact, with registered campaign codes appended on activation. The automatic Source line in SimplePractice practitioner notifications is unverified; the existing native referral question remains the completion-attribution fallback. See ATTRIBUTION.md for evidence, configuration and limits. The previous no-analytics state is superseded by this explicit request.

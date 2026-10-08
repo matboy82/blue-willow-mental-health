@@ -19,7 +19,7 @@ In restricted environments set ASTRO_TELEMETRY_DISABLED=1. CI does this automati
 
 Implemented: homepage, process, pricing, FAQ, about, contact, privacy, teen/adult audience pages, styleguide, custom 404, self-hosted fonts, supplied tree mark, favicon, structured data, sitemap, security headers, and CI.
 
-Booking and contact open the native secure SimplePractice pages using branded site buttons. Matt approved keeping Essential with secure links on October 3, 2026. No external widgets or forms load on the website. No patient data backend, custom contact Worker, analytics, or marketing trackers are included.
+Booking and contact open native secure SimplePractice pages using branded site buttons. Essential with secure links remains the approved design. October 8 additions: PT badges, `/booking/`, Cloudflare Web Analytics and source-bearing booking-link events in a dedicated Analytics Engine dataset. No patient backend, custom contact form or advertising tracker is included. See [attribution setup and limits](docs/ATTRIBUTION.md).
 
 **Test deployment live:** https://blue-willow-mental-health.pages.dev (verified 2026-10-03 — matches the approved mockup; SimplePractice booking links working). **Production cutover pending:** custom domain + `PUBLIC_SITE_ENV=production` + Squarespace DNS + Matt's release authorization. Preview builds stay noindex; production enables indexing.
 

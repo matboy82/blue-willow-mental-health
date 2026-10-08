@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TrustRow from '../components/TrustRow.astro';
+import { practice } from '../lib/practice';
+---
+<Layout title="Book an ADHD assessment — Kentucky telehealth" description="Request your $225 initial ADHD assessment or $100 follow-up through Blue Willow Mental Health’s secure SimplePractice portal. Telehealth across Kentucky.">
+  <section class="page-hero"><div class="wrap"><a class="breadcrumb" href="/">Home /</a><div class="kicker">Your next step</div><h1>Request your assessment.</h1><p class="lead">Choose a time through our secure portal. The practice confirms your appointment and sends your next steps.</p></div></section>
+  <section class="block"><div class="wrap"><div class="contact-panel">
+    <h2>Book securely in SimplePractice.</h2>
+    <p>Initial ADHD assessment: <strong>$225</strong>. Follow-up: <strong>$100</strong>. Visits take place by telehealth while you are in Kentucky.</p>
+    <a class="btn" href={practice.booking} rel="noreferrer" data-booking-service="initial-assessment">Book your $225 assessment ↗</a>
+    <TrustRow />
+    <p class="small-note">Scheduling, payment, and clinical paperwork stay in SimplePractice. An appointment request requires confirmation from the practice.</p>
+    <p><a class="text-link" href={practice.booking} rel="noreferrer" data-booking-service="follow-up">Request a $100 follow-up ↗</a></p>
+    <p><a href="/contact/">Questions before booking?</a> For crisis support, call or text 988. In immediate danger, call 911.</p>
+  </div></div></section>
+</Layout>

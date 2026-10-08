@@ -5,7 +5,7 @@ test('homepage and content pages are accessible at desktop and mobile sizes', as
   test.setTimeout(90_000); // Eighteen page/viewport audits can exceed the default thirty seconds.
   for (const width of [1440, 360]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const route of ['/', '/how-it-works/', '/pricing/', '/faq/', '/about/', '/contact/', '/privacy/', '/adhd-assessment-for-teens/', '/adhd-assessment-for-adults/', '/adhd-assessment-louisville-ky/']) {
+    for (const route of ['/', '/booking/', '/how-it-works/', '/pricing/', '/faq/', '/about/', '/contact/', '/privacy/', '/adhd-assessment-for-teens/', '/adhd-assessment-for-adults/', '/adhd-assessment-louisville-ky/']) {
       await page.goto(route);
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
       expect(results.violations, `${width}: ${route}`).toEqual([]);
@@ -62,4 +62,54 @@ test('main content stays visible when font downloads fail', async ({ page }) => 
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Book your assessment', exact: true }).first()).toBeVisible();
+});
+
+test('PT badges are visible and campaign source survives navigation into the booking handoff', async ({ page }) => {
+  const events: unknown[] = [];
+  await page.route('**/api/booking-event', async route => { events.push(route.request().postDataJSON()); await route.fulfill({ status: 204 }); });
+  let destination = '';
+  await page.route('https://jo-elbert.clientsecure.me/**', async route => { destination = route.request().url(); await route.fulfill({ contentType: 'text/html', body: '<h1>Synthetic portal</h1>' }); });
+  await page.goto('/?utm_source=psychologytoday&utm_medium=referral&utm_campaign=pt-profile&private=test');
+  const badge = page.getByRole('img', { name: /Verified by Psychology Today/ });
+  await expect(badge).toBeVisible();
+  expect(await badge.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBe(186);
+  await page.getByRole('link', { name: /Before you book/ }).click();
+  await expect(page).toHaveURL(/\/booking\/$/);
+  await expect(badge).toBeVisible();
+  const saved = await page.evaluate(() => sessionStorage.getItem('blue-willow-attribution'));
+  expect(JSON.parse(saved!)).toEqual({ utm_source: 'psychologytoday', utm_medium: 'referral', utm_campaign: 'pt-profile' });
+  await page.getByRole('link', { name: 'Book your $225 assessment' }).click();
+  await expect(page.getByRole('heading', { name: 'Synthetic portal' })).toBeVisible();
+  expect(new URL(destination).searchParams.get('utm_source')).toBe('psychologytoday');
+  expect(new URL(destination).searchParams.has('private')).toBe(false);
+  expect(events).toEqual([{ event: 'booking_link_click', page: '/booking/', service: 'initial-assessment', channel: 'link', utm_source: 'psychologytoday', utm_medium: 'referral', utm_campaign: 'pt-profile' }]);
+});
+
+test('unregistered URL values are discarded and unavailable session storage does not block direct booking', async ({ page }) => {
+  await page.addInitScript(() => { Object.defineProperty(window, 'sessionStorage', { get() { throw new Error('Storage blocked'); } }); });
+  const events: any[] = [];
+  await page.route('**/api/booking-event', async route => { events.push(route.request().postDataJSON()); await route.fulfill({ status: 204 }); });
+  await page.route('https://jo-elbert.clientsecure.me/**', route => route.fulfill({ contentType: 'text/html', body: '<h1>Synthetic portal</h1>' }));
+  await page.goto('/booking/?utm_source=unregistered-private-text&utm_campaign=private-text');
+  await page.getByRole('link', { name: 'Book your $225 assessment' }).click();
+  await expect(page).toHaveURL('https://jo-elbert.clientsecure.me/?utm_source=direct');
+  expect(events[0]).toMatchObject({ utm_source: 'direct' });
+  expect(events[0]).not.toHaveProperty('utm_campaign');
+});
+
+test('a newly tagged visit replaces session campaign and WebMCP uses the same attributed handoff', async ({ page }) => {
+  await page.addInitScript(() => {
+    (window as any).publicTools = {};
+    Object.defineProperty(document, 'modelContext', { value: { registerTool(tool: any) { (window as any).publicTools[tool.name] = tool; } } });
+  });
+  const events: any[] = [];
+  await page.route('**/api/booking-event', async route => { events.push(route.request().postDataJSON()); await route.fulfill({ status: 204 }); });
+  await page.route('https://jo-elbert.clientsecure.me/**', route => route.fulfill({ contentType: 'text/html', body: '<h1>Synthetic portal</h1>' }));
+  await page.goto('/?utm_source=psychologytoday&utm_medium=referral&utm_campaign=pt-profile');
+  await page.goto('/booking/?utm_source=instagram&utm_medium=social');
+  const result = await page.evaluate(() => (window as any).publicTools.open_booking_flow.execute({ service: 'follow-up' }));
+  expect(new URL(result.url).searchParams.get('utm_source')).toBe('instagram');
+  expect(new URL(result.url).searchParams.has('utm_campaign')).toBe(false);
+  await expect(page.getByRole('heading', { name: 'Synthetic portal' })).toBeVisible();
+  expect(events).toEqual([{ event: 'booking_link_click', page: '/booking/', service: 'follow-up', channel: 'webmcp', utm_source: 'instagram', utm_medium: 'social' }]);
 });

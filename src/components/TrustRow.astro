@@ -1,0 +1,17 @@
+---
+// Additional verified directory badges can be passed through the slot later.
+interface Props { centered?: boolean }
+const { centered = false } = Astro.props;
+---
+<div class:list={['verification-row', { centered }]} aria-label="Professional verification">
+  <a href="https://www.psychologytoday.com/profile/1589949" rel="noreferrer" class="verification-badge">
+    <img src="/psychology-today-verified.svg" width="186" height="60" alt="Verified by Psychology Today — view the provider’s profile" decoding="async" />
+  </a>
+  <slot />
+</div>
+<style>
+  .verification-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px; }
+  .centered { justify-content: center; }
+  .verification-badge { display: inline-flex; border-radius: 30px; }
+  .verification-badge img { display: block; width: 186px; height: 60px; }
+</style>

@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Pricing from '../components/Pricing.astro';
 import Faq from '../components/Faq.astro';
 import Booking from '../components/Booking.astro';
+import TrustRow from '../components/TrustRow.astro';
 import { practice } from '../lib/practice';
 import { getBrandImages } from '../lib/brand';
 const brand = await getBrandImages();
@@ -12,12 +13,13 @@ const steps = [
   { title: 'Talk it through', text: 'Meet by secure video for a 60–90 minute review. Discuss your history, your results, and a plan for what comes next.' },
 ];
 ---
-<Layout title="ADHD assessments for teens & adults in Kentucky" description="Focused ADHD assessments by telehealth across Kentucky. Based in Louisville. $225 initial assessment, $100 follow-up. Request an appointment online." faq>
+<Layout title="ADHD telehealth Kentucky — assessments for teens & adults" description="ADHD telehealth Kentucky: focused assessments for teens and adults, based in Louisville. $225 initial assessment, $100 follow-up. Request an appointment online." faq>
   <section class="hero"><div class="wrap hero-grid">
     <div><span class="eyebrow">Louisville roots. Kentucky reach.</span><h1>Is it ADHD?<br />Get a clear answer.</h1>
       <p class="lead">Focused ADHD assessments for teens and adults — from home, by telehealth. Objective screening, a specialist’s perspective, and honest flat pricing.</p>
       <div class="hero-ctas"><a class="btn" href={practice.booking} rel="noreferrer">Book your assessment</a><a class="btn btn-ghost" href="#how">How it works</a></div>
       <p class="micro-trust"><strong>$225 flat intake</strong> · Licensed psychiatric provider<br />Telehealth across Kentucky · Cash pay</p>
+      <TrustRow />
     </div>
     <figure class="hero-art"><img src={brand.art} srcset={brand.artSrcset} sizes={brand.artSizes} alt="A blue willow tree with long, flowing branches" width="440" height="508" decoding="async" /><figcaption>Rooted in care. Focused on clarity.<small>A little less uncertainty. A way forward.</small></figcaption></figure>
   </div></section>

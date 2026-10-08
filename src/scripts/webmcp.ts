@@ -1,4 +1,5 @@
 import { practice } from '../lib/practice';
+import { bookingUrl, captureAttribution, trackBookingClick } from '../lib/attribution';
 
 type WebMcpRegistry = {
   registerTool(
@@ -60,8 +61,11 @@ if (typeof registry?.registerTool === 'function') {
     inputSchema: { type: 'object', properties: { service: serviceSchema }, required: ['service'], additionalProperties: false },
     execute(input: unknown) {
       const service = readService(input);
-      window.setTimeout(() => window.location.assign(practice.booking), 0);
-      return { status: 'opened', service, ...serviceDetails[service], url: practice.booking };
+      captureAttribution();
+      trackBookingClick(service, 'webmcp');
+      const url = bookingUrl();
+      window.setTimeout(() => window.location.assign(url), 0);
+      return { status: 'opened', service, ...serviceDetails[service], url };
     },
   });
 
