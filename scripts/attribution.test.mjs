@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { onRequest } from '../functions/api/booking-event.js';
 import { cleanAttribution } from '../src/lib/attribution-policy.mjs';
 
-const base = { event: 'booking_link_click', page: '/booking/', service: 'initial-assessment', channel: 'link', utm_source: 'psychologytoday', utm_medium: 'referral', utm_campaign: 'pt-profile' };
+const base = { event: 'booking_link_click', page: '/booking/', service: 'initial-assessment', channel: 'link', utm_source: 'psychologytoday', utm_medium: 'directory', utm_campaign: 'profile_link' };
 function context(body = base, overrides = {}) {
   const writes = [];
   return { writes, request: new Request('https://www.bluewillowmentalhealth.com/api/booking-event', {
@@ -13,7 +13,7 @@ function context(body = base, overrides = {}) {
 test('valid handoff records only permitted public dimensions; direct fallback has no identifier', async () => {
   const ctx = context();
   assert.equal((await onRequest(ctx)).status, 204);
-  assert.deepEqual(ctx.writes, [{ indexes: ['booking_link_click'], blobs: ['booking_link_click', '/booking/', 'initial-assessment', 'link', 'psychologytoday', 'referral', 'pt-profile'], doubles: [1] }]);
+  assert.deepEqual(ctx.writes, [{ indexes: ['booking_link_click'], blobs: ['booking_link_click', '/booking/', 'initial-assessment', 'link', 'psychologytoday', 'directory', 'profile_link'], doubles: [1] }]);
   const direct = context({ event: base.event, page: '/', service: 'unspecified', channel: 'webmcp' });
   assert.equal((await onRequest(direct)).status, 204);
   assert.deepEqual(direct.writes[0].blobs.slice(4), ['direct', 'none', 'none']);

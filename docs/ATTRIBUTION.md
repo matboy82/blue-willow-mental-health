@@ -20,11 +20,11 @@ The collector accepts only `booking_link_click`, allowlisted public page, appoin
 
 Use the website as the destination so it captures attribution before the secure handoff:
 
-`https://www.bluewillowmentalhealth.com/booking/?utm_source=psychologytoday&utm_medium=referral&utm_campaign=pt-profile`
+`https://www.bluewillowmentalhealth.com/booking/?utm_source=psychologytoday&utm_medium=directory&utm_campaign=profile_link`
 
 - Sources: `direct`, `psychologytoday`, `psychology-today`, `pt`, `google`, `gbp`, `facebook`, `instagram`, `referral`, `newsletter`.
-- Mediums: `referral`, `organic`, `social`, `organic_social`, `email`, `cpc`.
-- Campaigns: `profile`, `pt-profile`, `launch`, `fall-2026`, `october-2026`, `social-october-2026`, `referral-outreach`.
+- Mediums: `directory`, `referral`, `organic`, `social`, `organic_social`, `email`, `cpc`.
+- Campaigns: `profile_link`, `profile`, `pt-profile`, `launch`, `fall-2026`, `october-2026`, `social-october-2026`, `referral-outreach`.
 
 Register new public codes in `src/lib/attribution-policy.mjs` before sharing links. Unknown values are discarded to avoid persisting arbitrary private text. Never use names, emails, symptoms or patient-specific codes. These examples do not authorize paid advertising or a GBP listing. Muse was not accessed or changed.
 

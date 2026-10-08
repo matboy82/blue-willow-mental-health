@@ -2,8 +2,8 @@
 // An allowlist prevents arbitrary URL values (including names/medical details) being saved.
 export const utmCodes = {
   utm_source: ['direct', 'psychologytoday', 'psychology-today', 'pt', 'google', 'gbp', 'facebook', 'instagram', 'referral', 'newsletter'],
-  utm_medium: ['referral', 'organic', 'social', 'organic_social', 'email', 'cpc'],
-  utm_campaign: ['profile', 'pt-profile', 'launch', 'fall-2026', 'october-2026', 'social-october-2026', 'referral-outreach'],
+  utm_medium: ['directory', 'referral', 'organic', 'social', 'organic_social', 'email', 'cpc'],
+  utm_campaign: ['profile_link', 'profile', 'pt-profile', 'launch', 'fall-2026', 'october-2026', 'social-october-2026', 'referral-outreach'],
 };
 export const publicPaths = ['/', '/booking/', '/how-it-works/', '/pricing/', '/faq/', '/about/', '/contact/', '/privacy/', '/adhd-assessment-for-teens/', '/adhd-assessment-for-adults/', '/adhd-assessment-louisville-ky/'];
 /** @param {unknown} input @returns {Record<string, string>} */
