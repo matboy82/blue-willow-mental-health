@@ -16,7 +16,7 @@ The site is implemented and pushed (`ac58ada4`, Matt, 2026-10-03); test deployme
 | Psychology Today profile | Practice | Badge/profile verified October 8; owner aligns profile with approved website details | Badge complete; profile update pending |
 | Facebook page admin / consistency | Matt | Owner access confirmed 2026-10-03; align facts and website URL after prod cutover | In progress |
 | Instagram account | Matt | Verify/link in Meta Business settings; cross-post from FB page | Open |
-| Analytics decision | Matt / practice | Requested October 8; Web Analytics and booking-click dataset configured, privacy/CSP updated | Configured; deployment verification pending |
+| Analytics decision | Matt / practice | Requested October 8; Web Analytics and booking-click dataset configured, privacy/CSP updated | Live; collector and beacon verified October 8 |
 | Automatic source in booking notification | Practice / SimplePractice | Vendor confirms supported UTM prefill and practitioner notification field; synthetic receipt test | Unverified; source-bearing click fallback implemented |
 | Search Console | Matt | Verify domain and submit sitemap after production indexing is enabled | Open |
 | Domain / mail / HTTPS cutover | Matt | Follow runbook, retain rollback records, preserve Workspace DNS, verify final host | Open |
@@ -33,3 +33,4 @@ No invented phone, address, social profile, provider entity, availability promis
 - Google Calendar is disconnected; native SimplePractice scheduling does not need it. Muse handoff uses generic practitioner reminders and public copy only.
 - A new Louisville page and stronger conversion-page FAQs are prepared locally. Production remains gated by Matt's testing/release authorization; no DNS changes.
 - See docs/FUNNEL-OPERATIONS.md for current status, automation limits and the test checklist. Three-touch nurture is not running; no supported native sequence was established.
+

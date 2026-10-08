@@ -51,3 +51,11 @@ GROUP BY source, medium, campaign
 ```
 
 Sources: [PT profile](https://www.psychologytoday.com/profile/1589949), [Cloudflare FAQ](https://developers.cloudflare.com/web-analytics/faq/), [Pages bindings](https://developers.cloudflare.com/pages/functions/bindings/), [SimplePractice macros](https://support.simplepractice.com/hc/en-us/articles/9807719131661-Using-macros-in-client-emails-and-reminders).
+
+## Production verification — October 8, 2026
+
+Main commit `3940fa4` deployed successfully as `7168df3b-b532-4fbc-ad96-4a8862868835` at the production domain. Initial deployments built successfully but failed publishing the Function because account-level Analytics Engine was disabled; enabling it resolved the error. The binding and dataset are active.
+
+Live checks confirmed both official badge placements, one injected Cloudflare beacon, beacon responses of 204, no browser console/CSP errors, canonical PT query parameters on the SimplePractice handoff, and a 204 receipt from the source-bearing click collector. A retained-page test observed the beacon response; immediate handoff tests observed the request but could not observe its response after navigation. Nine static/collector tests and eight browser tests passed. Live mobile Lighthouse scored 96 performance and 100 accessibility/best practices/SEO, with FCP 1.5 seconds, LCP 2.6 seconds and CLS 0 in one run; measurements vary.
+
+Verification generated synthetic anonymous click records on October 8 (two `direct` submissions and one confirmed PT submission, plus two PT handoff attempts with unobserved delivery). Exclude these from real lead totals. No appointment or inquiry was submitted. The source line in practitioner completion notifications remains unverified as described above.
