@@ -1,0 +1,30 @@
+{
+  "sourceSnapshot": "",
+  "reviewer": "",
+  "reviewedOn": "",
+  "pages": {
+    "/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/about/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/adhd-assessment-for-adults/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/adhd-assessment-for-teens/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/adhd-assessment-louisville-ky/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/how-it-works/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/pricing/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/faq/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/booking/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/contact/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/privacy/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false }
+  },
+  "gates": {
+    "providerPublication": false,
+    "providerCredentials": false,
+    "medicalDisclaimers": false,
+    "healthSources": false,
+    "aiDisclosure": false,
+    "imageProvenance": false,
+    "testimonialPermissions": false,
+    "honestDates": false,
+    "clientApproval": false,
+    "mattReleaseApproval": false
+  }
+}

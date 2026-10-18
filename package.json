@@ -9,7 +9,9 @@
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1 --port 4322",
     "test": "node --test scripts/*.test.mjs",
-    "verify": "npm run check && npm run build && npm test"
+    "verify": "npm run check && npm run build && npm test",
+    "content:review": "node scripts/content-review.mjs",
+    "content:release-check": "node scripts/content-review.mjs --release"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",

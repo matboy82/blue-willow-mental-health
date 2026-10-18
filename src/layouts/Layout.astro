@@ -22,10 +22,19 @@ const metaTitle = `${shortTitles[Astro.url.pathname] ?? title} | Blue Willow Men
 const socialImage = new URL('/social-preview.png', Astro.site);
 const socialImageAlt = 'Blue Willow Mental Health — ADHD assessments for teens and adults. Telehealth across Kentucky.';
 const nav = [{ href: '/how-it-works/', label: 'How it works' }, { href: '/pricing/', label: 'Pricing' }, { href: '/faq/', label: 'FAQ' }, { href: '/about/', label: 'About' }, { href: '/contact/', label: 'Contact' }];
+const healthPages = ['/adhd-assessment-for-adults/', '/adhd-assessment-for-teens/', '/adhd-assessment-louisville-ky/', '/how-it-works/', '/pricing/', '/faq/'];
+const pageType = Astro.url.pathname === '/about/' ? 'AboutPage' : Astro.url.pathname === '/contact/' ? 'ContactPage' : healthPages.includes(Astro.url.pathname) ? 'MedicalWebPage' : 'WebPage';
+const pageSchema = {
+  '@type': faq ? [pageType, 'FAQPage'] : pageType,
+  '@id': `${canonical.href}#webpage`, url: canonical.href,
+  name: metaTitle, description, inLanguage: 'en',
+  publisher: { '@id': new URL('#practice', Astro.site).href },
+  ...(faq ? { mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) } : {}),
+};
 const schema = {
   '@context': 'https://schema.org', '@graph': [
     { '@type': 'MedicalClinic', '@id': new URL('#practice', Astro.site).href, name: practice.name, url: Astro.site?.href, telephone: practice.telephone, email: practice.email, description: 'Blue Willow Mental Health is a telehealth ADHD practice in Louisville, Kentucky, offering flat-fee assessments for teens and adults.', areaServed: { '@type': 'State', name: 'Kentucky' }, medicalSpecialty: 'Psychiatric', priceRange: '$100–$225', availableService: { '@type': 'MedicalTherapy', name: 'Telehealth ADHD assessment' } },
-    ...(faq ? [{ '@type': 'FAQPage', mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }] : []),
+    ...(!noindex ? [pageSchema] : []),
   ],
 };
 ---

@@ -27,6 +27,8 @@ Booking and contact open native secure SimplePractice pages using branded site b
 
 ## Editing
 
+Helpful-content review: [docs/CONTENT-REVIEW.md](docs/CONTENT-REVIEW.md). `npm run content:review` reports pending human checks; `npm run content:release-check` fails for incomplete or stale review. This is an explicit pre-release check, not a deployment command. Visible changes and provider publication remain pending client/Matt approval.
+
 - Informational copy: src/content/pages/*.md (validated by Zod).
 - Homepage: src/pages/index.astro.
 - Shared FAQs and practice URLs: src/lib/practice.ts.
