@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { practice } from '../lib/practice';
+---
+<Layout title="Website terms" description="Terms for using the Blue Willow Mental Health website, including general information, secure scheduling, privacy, and external services.">
+  <section class="page-hero"><div class="wrap"><a class="breadcrumb" href="/">Home /</a><div class="kicker">Using this website</div><h1>Website terms</h1><p class="lead">These terms cover this public website. Clinical care, consent, and payment policies are handled separately by the practice.</p></div></section>
+  <section class="block"><div class="wrap prose">
+    <p>Effective October 18, 2026.</p>
+    <h2>General information</h2>
+    <p>This website introduces Blue Willow Mental Health and its services. Its content is general information, not individual medical advice, a diagnosis, or a treatment recommendation. Do not delay seeking professional care because of something you read here.</p>
+    <p>Reading this website or following a scheduling link does not by itself establish a provider–patient relationship. Discuss your needs, eligibility, and care with the practice directly.</p>
+    <h2>Scheduling and clinical care</h2>
+    <p>Booking and secure inquiries take place in <a href={practice.booking} rel="noreferrer">SimplePractice</a>. An appointment request is not a confirmed visit; the practice confirms requests and provides next steps. Ask the practice to confirm current availability, fees, and the policies that apply to your appointment.</p>
+    <p>These website terms do not replace clinical consent documents, treatment agreements, payment or cancellation policies, or the practice’s Notice of Privacy Practices.</p>
+    <h2>Privacy and secure communication</h2>
+    <p>Read our <a href="/privacy/">website privacy notice</a> for information about hosting, analytics, and browser storage. Do not put medical details in website URLs or send them through ordinary website email links. Use the <a href={practice.contact} rel="noreferrer">secure inquiry form</a> for communication with the practice.</p>
+    <h2>External services</h2>
+    <p>Links to SimplePractice and other websites take you to services operated separately from this website. Their own terms and privacy notices apply when you use them.</p>
+    <h2>Responsible use</h2>
+    <p>Use this website lawfully. Do not attempt to disrupt it, introduce malicious software, or gain unauthorized access to its systems.</p>
+    <h2>Urgent needs and questions</h2>
+    <p>This website and its inquiry links are not emergency services. In immediate danger, call 911. For questions about these terms or the practice, use our <a href="/contact/">contact page</a>.</p>
+  </div></section>
+</Layout>

@@ -11,6 +11,16 @@ const { title, description, faq = false, noindex = false } = Astro.props;
 const production = import.meta.env.PUBLIC_SITE_ENV === 'production';
 const isHome = Astro.url.pathname === '/';
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const shortTitles: Record<string, string> = {
+  '/': 'ADHD telehealth in Kentucky',
+  '/booking/': 'Book an ADHD assessment',
+  '/adhd-assessment-for-adults/': 'Adult ADHD assessments in KY',
+  '/adhd-assessment-for-teens/': 'Teen ADHD assessments in KY',
+  '/adhd-assessment-louisville-ky/': 'ADHD assessments in Louisville',
+};
+const metaTitle = `${shortTitles[Astro.url.pathname] ?? title} | Blue Willow Mental Health`;
+const socialImage = new URL('/social-preview.png', Astro.site);
+const socialImageAlt = 'Blue Willow Mental Health — ADHD assessments for teens and adults. Telehealth across Kentucky.';
 const nav = [{ href: '/how-it-works/', label: 'How it works' }, { href: '/pricing/', label: 'Pricing' }, { href: '/faq/', label: 'FAQ' }, { href: '/about/', label: 'About' }, { href: '/contact/', label: 'Contact' }];
 const schema = {
   '@context': 'https://schema.org', '@graph': [
@@ -23,16 +33,20 @@ const schema = {
 <html lang="en">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title} | Blue Willow Mental Health</title><meta name="description" content={description} />
+  <title>{metaTitle}</title><meta name="description" content={description} />
   <link rel="canonical" href={canonical} /><link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preload" as="font" href={interFont} type="font/woff2" crossorigin />
   <link rel="preload" as="font" href={frauncesFont} type="font/woff2" crossorigin />
   {isHome && <link rel="preload" as="image" href={brand.art} imagesrcset={brand.artSrcset} imagesizes={brand.artSizes} media="(min-width: 901px)" type="image/webp" fetchpriority="high" />}
   <meta name="robots" content={production && !noindex ? 'index, follow' : 'noindex, nofollow'} />
   <meta name="referrer" content="no-referrer" />
-  <meta property="og:title" content={`${title} | Blue Willow Mental Health`} /><meta property="og:description" content={description} />
+  <meta property="og:title" content={metaTitle} /><meta property="og:description" content={description} />
   <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
-  <meta property="og:image" content={new URL('/willow-mark.jpg', Astro.site)} /><meta property="og:image:alt" content="Blue Willow tree mark" />
+  <meta property="og:site_name" content="Blue Willow Mental Health" />
+  <meta property="og:image" content={socialImage} /><meta property="og:image:alt" content={socialImageAlt} />
+  <meta property="og:image:type" content="image/png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={metaTitle} />
+  <meta name="twitter:description" content={description} /><meta name="twitter:image" content={socialImage} /><meta name="twitter:image:alt" content={socialImageAlt} />
   <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\u003c')} />
 </head>
 <body>
@@ -47,7 +61,7 @@ const schema = {
     <div><h2>Blue Willow Mental Health</h2><p>Focused ADHD assessments for teens and adults.<br />St. Matthews · Louisville, KY<br />Telehealth across Kentucky</p><p><a href={`tel:${practice.telephone}`}>{practice.phone}</a><br /><a href={`mailto:${practice.email}`}>{practice.email}</a><br />For clinical details, use the secure portal.</p></div>
     <div><h2>Explore the practice</h2><ul>{nav.map(n => <li><a href={n.href}>{n.label}</a></li>)}</ul></div>
     <div><h2>Your next step</h2><ul><li><a href="/adhd-assessment-louisville-ky/">ADHD assessments in Louisville</a></li><li><a href="/adhd-assessment-for-teens/">Assessments for teens</a></li><li><a href="/adhd-assessment-for-adults/">Assessments for adults</a></li><li><a href={practice.booking} rel="noreferrer">Secure client portal ↗</a></li><li><a href="/privacy/">Privacy notice</a></li></ul></div>
-  </div><div class="foot-bottom"><span>© {new Date().getFullYear()} Blue Willow Mental Health.</span><p>This website does not collect clinical information. Clinical intake takes place in SimplePractice.</p></div></div></footer>
+  </div><div class="foot-bottom"><span>© {new Date().getFullYear()} Blue Willow Mental Health. <a href="/terms/">Website terms</a></span><p>This website does not collect clinical information. Clinical intake takes place in SimplePractice.</p></div></div></footer>
   <script src="../scripts/webmcp.ts"></script>
   <script src="../scripts/analytics.ts"></script>
   <!-- Cloudflare Pages injects its single Web Analytics beacon at deployment. -->

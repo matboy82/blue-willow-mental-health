@@ -9,12 +9,32 @@ async function htmlFiles(dir) {
 }
 const files = await htmlFiles('dist');
 test('all required public routes are generated', async () => {
-  for (const route of ['', 'booking', 'how-it-works', 'pricing', 'faq', 'about', 'contact', 'privacy', 'adhd-assessment-for-teens', 'adhd-assessment-for-adults', 'adhd-assessment-louisville-ky', 'styleguide']) {
+  for (const route of ['', 'booking', 'how-it-works', 'pricing', 'faq', 'about', 'contact', 'privacy', 'terms', 'adhd-assessment-for-teens', 'adhd-assessment-for-adults', 'adhd-assessment-louisville-ky', 'styleguide']) {
     await access(path.join('dist', route, 'index.html'));
   }
   await access('dist/404.html');
   await access('dist/sitemap-index.xml');
   await access('dist/_headers');
+});
+test('share cards and website terms are available from every page', async () => {
+  const image = await readFile('dist/social-preview.png');
+  assert.equal(image.subarray(1, 4).toString(), 'PNG');
+  assert.equal(image.readUInt32BE(16), 1200);
+  assert.equal(image.readUInt32BE(20), 630);
+  const titles = new Set();
+  for (const file of files) {
+    const html = await readFile(file, 'utf8');
+    const title = html.match(/<title>(.*?)<\/title>/s)[1];
+    assert.ok(title.length <= 60, `${file}: title may truncate`);
+    assert.ok(!titles.has(title), `${file}: duplicate title`);
+    titles.add(title);
+    assert.match(html, /href="\/terms\/"/);
+    assert.match(html, /property="og:image" content="https:\/\/[^\s"]+\/social-preview\.png"/);
+    assert.match(html, /property="og:image:width" content="1200"/);
+    assert.match(html, /property="og:image:height" content="630"/);
+    assert.match(html, /name="twitter:card" content="summary_large_image"/);
+    assert.match(html, /name="twitter:image" content="https:\/\/[^\s"]+\/social-preview\.png"/);
+  }
 });
 test('generated navigation links and assets resolve', async () => {
   for (const file of files) {

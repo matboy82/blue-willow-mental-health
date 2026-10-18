@@ -159,6 +159,7 @@ summary::after{flex:none}
 footer h2{color:white;font-family:Inter,sans-serif;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:16px}
 footer ul{list-style:none;line-height:2}
 .foot-bottom p{max-width:600px}
+.foot-bottom a{text-decoration:underline}
 .page-hero{padding:72px 0 64px;background:linear-gradient(135deg,var(--cream),var(--powder-2));border-bottom:1px solid #dfe8f3}
 .page-hero h1{font-size:clamp(36px,5vw,54px);max-width:840px;margin-bottom:24px;letter-spacing:-1px}
 .page-hero .lead{max-width:700px;font-size:18px;color:var(--muted);line-height:1.7}
