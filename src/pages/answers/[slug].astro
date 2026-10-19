@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  return (await getCollection('answers')).map(page => ({ params: { slug: page.id }, props: { page } }));
+}
+const { page } = Astro.props;
+const { Content } = await render(page);
+const { title, question, directAnswer } = page.data;
+const breadcrumbSchema = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Answers', item: new URL('/answers/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: question, item: new URL(Astro.url.pathname, Astro.site).href },
+  ],
+};
+---
+<Layout title={title} description={directAnswer} faqEntries={[{ question, answer: directAnswer }]}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema).replace(/</g, '\u003c')} />
+  <article>
+    <section class="page-hero"><div class="wrap">
+      <nav class="breadcrumb answer-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/answers/">Answers</a></li><li aria-current="page">{question}</li></ol></nav>
+      <h1>{question}</h1>
+      <p class="lead">{directAnswer}</p>
+    </div></section>
+    <section class="block"><div class="wrap"><div class="prose answer-prose">
+      <Content />
+      <!-- Publication pending: add only the approved provider name, verified credentials and bio link. See docs/ANSWERS-HUB.md. -->
+      <p class="answer-disclaimer">This page is for general information only. It is not medical advice. Talk with a qualified provider about your own health questions.</p>
+      <a class="text-link" href="/answers/">All answers →</a>
+    </div></div></section>
+  </article>
+</Layout>
+<style>
+  .answer-breadcrumb ol { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; }
+  .answer-breadcrumb li + li::before { content: '/'; margin-right: .5rem; }
+  .answer-prose { margin-inline: auto; }
+  .answer-prose :global(.answer-booking) { margin-top: 2.5rem; padding: 2rem; background: var(--powder-2); border: 1px solid var(--powder); border-radius: var(--radius); }
+  .answer-prose :global(.answer-booking h2) { margin-top: 0; }
+  .answer-prose :global(.answer-booking p) { margin-bottom: 0; }
+  .answer-disclaimer { font-size: .875rem; border-top: 1px solid var(--powder); padding-top: 1.5rem; margin-top: 2rem; }
+  @media (max-width: 480px) { .answer-prose :global(.answer-booking) { padding: 1.5rem; } }
+</style>

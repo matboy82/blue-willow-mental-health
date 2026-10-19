@@ -13,7 +13,20 @@
     "/faq/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
     "/booking/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
     "/contact/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
-    "/privacy/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false }
+    "/privacy/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/how-does-an-adult-adhd-assessment-work/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/what-happens-during-a-telehealth-adhd-evaluation/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/how-long-does-an-adhd-assessment-take/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/how-much-does-an-adhd-assessment-cost-without-insurance/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/do-i-need-a-referral-for-an-adhd-assessment/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/online-adhd-quiz-vs-real-assessment/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/how-to-prepare-for-your-adhd-evaluation/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/is-telehealth-adhd-assessment-as-good-as-in-person/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/what-if-my-assessment-shows-it-isnt-adhd/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/can-i-use-hsa-or-fsa-for-an-adhd-assessment/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/how-long-is-the-wait-for-an-adhd-assessment/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false },
+    "/answers/how-does-adhd-assessment-work-for-teenagers/": { "claims": false, "title": false, "description": false, "structuredData": false, "imageAlt": false, "clinicalScope": false }
   },
   "gates": {
     "providerPublication": false,

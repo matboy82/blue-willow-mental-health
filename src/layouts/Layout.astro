@@ -6,8 +6,9 @@ import '../styles/global.css';
 import { practice, faqs } from '../lib/practice';
 import { getBrandImages } from '../lib/brand';
 const brand = await getBrandImages();
-interface Props { title: string; description: string; faq?: boolean; noindex?: boolean }
-const { title, description, faq = false, noindex = false } = Astro.props;
+interface Props { title: string; description: string; faq?: boolean; noindex?: boolean; faqEntries?: { question: string; answer: string }[] }
+const { title, description, faq = false, noindex = false, faqEntries } = Astro.props;
+const pageFaqs = faqEntries ?? (faq ? faqs : undefined);
 const production = import.meta.env.PUBLIC_SITE_ENV === 'production';
 const isHome = Astro.url.pathname === '/';
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -23,13 +24,13 @@ const socialImage = new URL('/social-preview.png', Astro.site);
 const socialImageAlt = 'Blue Willow Mental Health — ADHD assessments for teens and adults. Telehealth across Kentucky.';
 const nav = [{ href: '/how-it-works/', label: 'How it works' }, { href: '/pricing/', label: 'Pricing' }, { href: '/faq/', label: 'FAQ' }, { href: '/about/', label: 'About' }, { href: '/contact/', label: 'Contact' }];
 const healthPages = ['/adhd-assessment-for-adults/', '/adhd-assessment-for-teens/', '/adhd-assessment-louisville-ky/', '/how-it-works/', '/pricing/', '/faq/'];
-const pageType = Astro.url.pathname === '/about/' ? 'AboutPage' : Astro.url.pathname === '/contact/' ? 'ContactPage' : healthPages.includes(Astro.url.pathname) ? 'MedicalWebPage' : 'WebPage';
+const pageType = Astro.url.pathname === '/about/' ? 'AboutPage' : Astro.url.pathname === '/contact/' ? 'ContactPage' : healthPages.includes(Astro.url.pathname) || (Astro.url.pathname.startsWith('/answers/') && Astro.url.pathname !== '/answers/') ? 'MedicalWebPage' : 'WebPage';
 const pageSchema = {
-  '@type': faq ? [pageType, 'FAQPage'] : pageType,
+  '@type': pageFaqs ? [pageType, 'FAQPage'] : pageType,
   '@id': `${canonical.href}#webpage`, url: canonical.href,
   name: metaTitle, description, inLanguage: 'en',
   publisher: { '@id': new URL('#practice', Astro.site).href },
-  ...(faq ? { mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) } : {}),
+  ...(pageFaqs ? { mainEntity: pageFaqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) } : {}),
 };
 const schema = {
   '@context': 'https://schema.org', '@graph': [

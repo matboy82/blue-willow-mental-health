@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test('homepage and content pages are accessible at desktop and mobile sizes', async ({ page }) => {
-  test.setTimeout(90_000); // Eighteen page/viewport audits can exceed the default thirty seconds.
+  test.setTimeout(180_000);
   for (const width of [1440, 360]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const route of ['/', '/booking/', '/how-it-works/', '/pricing/', '/faq/', '/about/', '/contact/', '/privacy/', '/terms/', '/adhd-assessment-for-teens/', '/adhd-assessment-for-adults/', '/adhd-assessment-louisville-ky/']) {
+    for (const route of ['/', '/booking/', '/how-it-works/', '/pricing/', '/faq/', '/about/', '/contact/', '/privacy/', '/terms/', '/adhd-assessment-for-teens/', '/adhd-assessment-for-adults/', '/adhd-assessment-louisville-ky/', '/answers/', '/answers/how-does-an-adult-adhd-assessment-work/', '/answers/how-much-does-an-adhd-assessment-cost-without-insurance/', '/answers/how-to-prepare-for-your-adhd-evaluation/']) {
       await page.goto(route);
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
       expect(results.violations, `${width}: ${route}`).toEqual([]);

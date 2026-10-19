@@ -11,4 +11,14 @@ const pages = defineCollection({
     heading: z.string(),
   }),
 });
-export const collections = { pages };
+const answers = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/answers' }),
+  schema: z.object({
+    order: z.number().int().min(1).max(12),
+    title: z.string(),
+    question: z.string(),
+    directAnswer: z.string(),
+    summary: z.string(),
+  }),
+});
+export const collections = { pages, answers };

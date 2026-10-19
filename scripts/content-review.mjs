@@ -6,6 +6,8 @@ import path from 'node:path';
 export const pageChecks = ['claims', 'title', 'description', 'structuredData', 'imageAlt', 'clinicalScope'];
 export const releaseGates = ['providerPublication', 'providerCredentials', 'medicalDisclaimers', 'healthSources', 'aiDisclosure', 'imageProvenance', 'testimonialPermissions', 'honestDates', 'clientApproval', 'mattReleaseApproval'];
 export const routes = ['/', '/about/', '/adhd-assessment-for-adults/', '/adhd-assessment-for-teens/', '/adhd-assessment-louisville-ky/', '/how-it-works/', '/pricing/', '/faq/', '/booking/', '/contact/', '/privacy/'];
+const answerFiles = await readdir(fileURLToPath(new URL('../src/content/answers/', import.meta.url)));
+routes.push('/answers/', ...answerFiles.filter(file => file.endsWith('.md')).sort().map(file => `/answers/${file.slice(0, -3)}/`));
 
 // Normalize line endings so the same revision hashes equally on Windows and CI.
 export async function sourceSnapshot(root) {
